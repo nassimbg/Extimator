@@ -1,7 +1,7 @@
+import {InMemoryDbService} from 'angular-in-memory-web-api';
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { InMemoryDbService } from './in-memory-db.service';
 
 describe('InMemoryDbService', () => {
   beforeEach(() => {
