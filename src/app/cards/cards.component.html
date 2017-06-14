@@ -1,9 +1,8 @@
-<ul>
-  <li *ngFor="let card of cards" (click)="onSelect(card)">
-    <span>{{card.title}}</span>
-  </li>
-</ul>
+<div class="card" *ngFor="let card of cards" (click)="onSelect(card)">
+  <div class="card-block">{{card.title}}</div>
+</div>
+
 
 <div *ngIf="selectedCard">
-<h2>{{selectedCard.title | uppercase}}</h2>
+  <h2>{{selectedCard.title | uppercase}}</h2>
 </div>

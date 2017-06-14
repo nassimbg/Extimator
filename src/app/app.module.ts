@@ -22,7 +22,7 @@ import {CardsService} from './card-service/cards.service';
     FormsModule,
     HttpModule,
     AlertModule.forRoot(),
-    InMemoryWebApiModule.forRoot(CardDbService)
+    InMemoryWebApiModule.forRoot(CardDbService),
   ],
   providers: [CardsService],
   bootstrap: [AppComponent]

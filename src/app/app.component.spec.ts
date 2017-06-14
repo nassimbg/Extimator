@@ -1,42 +1,86 @@
+import {
+  CardsService
+} from './card-service/cards.service';
+import {
+  CardsComponent
+} from './cards/cards.component';
+import {
+  CardDbService
+} from './in-memory/in-memory-db.service';
+import {
+  InMemoryWebApiModule
+} from 'angular-in-memory-web-api';
+import {
+  AlertModule
+} from 'ng2-bootstrap/alert';
+import {
+  HttpModule
+} from '@angular/http';
+import {
+  FormsModule
+} from '@angular/forms';
+import {
+  BrowserModule
+} from '@angular/platform-browser';
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  AppComponent
+} from './app.component';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let cardsService : CardsService;
+  let spy: jasmine.Spy;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        CardsComponent,
       ],
-    });
-    TestBed.compileComponents();
+      imports: [
+        FormsModule,
+        HttpModule
+      ],
+      providers: [CardsService],
+
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    cardsService = fixture.debugElement.injector.get(CardsService);
+
+    const cards = [{id: 1, title: '0.5'}];
+    spy = spyOn(cardsService, 'getCards')
+    .and.returnValue(Promise.resolve(cards));
+
+    fixture.detectChanges();
   });
 
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
 
   it(`should have as title 'Please select A card to Vote!'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Please select A card to Vote!');
   }));
 
   it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Please select A card to Vote!');
   }));
 
-    it('should display a different title when changed', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const comp = fixture.componentInstance;
+  it('should display a different title when changed', async(() => {
+    let comp = fixture.componentInstance;
+
     comp.title = 'Abou El Nis';
     fixture.detectChanges();
+
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Abou El Nis');
   }));
