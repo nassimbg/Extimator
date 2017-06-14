@@ -1,5 +1,7 @@
-<div class="card" *ngFor="let card of cards" (click)="onSelect(card)">
-  <div class="card-block">{{card.title}}</div>
+
+<div *ngFor="let card of cards; let i = index" (click)="onSelect(card)">
+<!-- TODO: check float problem -->
+  <div class="float-left card col-lg-4" style="margin: 2rem" >{{card.title}}</div>
 </div>
 
 

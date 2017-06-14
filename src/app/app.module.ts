@@ -10,6 +10,7 @@ import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { CardDbService } from 'app/in-memory/in-memory-db.service';
 import { CardsComponent } from './cards/cards.component';
 import {CardsService} from './card-service/cards.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {CardsService} from './card-service/cards.service';
     FormsModule,
     HttpModule,
     AlertModule.forRoot(),
+    NgbModule.forRoot(),
     InMemoryWebApiModule.forRoot(CardDbService),
   ],
   providers: [CardsService],
