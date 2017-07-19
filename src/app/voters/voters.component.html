@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <md-card class="col-lg-3 col-md-3 col-sm-3 col-xs-1" *ngFor="let vote of votes">
+      <md-card-header class="justify-content-center">{{vote.name}}</md-card-header>
+      <md-card-content class="justify-content-center">{{vote.card.title}}</md-card-content>
+    </md-card>
+  </div>
+</div>

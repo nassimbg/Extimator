@@ -11,9 +11,6 @@ import {
   InMemoryWebApiModule
 } from 'angular-in-memory-web-api';
 import {
-  AlertModule
-} from 'ng2-bootstrap/alert';
-import {
   HttpModule
 } from '@angular/http';
 import {
