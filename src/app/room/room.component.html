@@ -1,3 +1,15 @@
-<app-cards></app-cards>
-<app-voters></app-voters>
-<md-button-toggle (change)="subscribeTimer()">{{timerButton}}</md-button-toggle>
+<div class="row">
+  <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+    <div *ngIf="votingEnabled">
+      <app-cards></app-cards>
+    </div>
+    <div *ngIf="votingEnabled==false">
+      <app-voters></app-voters>
+    </div>
+
+  </div>
+
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <md-button-toggle (change)="votingEnabler()">{{votingButton}}</md-button-toggle>
+  </div>
+</div>

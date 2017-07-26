@@ -1,3 +1,4 @@
+import { print } from 'util';
 import { Component, OnInit } from '@angular/core';
 import { SimpleTimer } from 'ng2-simple-timer';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -10,39 +11,22 @@ import {Router} from "@angular/router";
 })
 export class RoomComponent implements OnInit {
 
-  timerId: string;
-  counter = 0;
-  timerButton = 'Start';
-  constructor(private st: SimpleTimer, public afAuth: AngularFireAuth) {
-    if(!this.afAuth.auth.currentUser){
-      Router.prototype.navigateByUrl("./");
-    }
-  }
+ votingButton: string;
+ votingEnabled: boolean;
+
+  constructor() { }
 
   ngOnInit() {
-    this.st.newTimer('1sec', 1);
+    this.votingButton = 'start voting';
   }
 
-  subscribeTimer() {
-    if (this.timerId) {
-      // Unsubscribe if timer Id is defined
-      this.st.unsubscribe(this.timerId);
-      this.timerId = undefined;
-      this.timerButton = 'Start';
-      console.log('timer 0 Unsubscribed.');
+  votingEnabler() {
+    if (this.votingEnabled) {
+      this.votingButton = 'start voting';
     } else {
-      // Subscribe if timer Id is undefined
-      this.timerId = this.st.subscribe('1sec', e => this.timerCallback());
-      this.timerButton = 'Stop';
-      console.log('timer 0 Subscribed.');
+      this.votingButton = 'stop voting';
     }
-    console.log(this.st.getSubscription());
+
+    this.votingEnabled = !this.votingEnabled;
   }
-
-  timerCallback() {
-    this.counter++;
-  }
-
-
-
 }
