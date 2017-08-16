@@ -21,14 +21,20 @@ export class AppComponent {
 	loginButton: string;
 
 	constructor(public afAuth: AngularFireAuth, public changeDetectorRef: ChangeDetectorRef) {
-		this.loginButton = this.LOGIN;
+		this.afAuth.authState.subscribe(auth => {
+			if (auth) {
+				this.loginButton = this.LOGOUT;
+			} else {
+				this.loginButton = this.LOGIN;
+			}
+		});
 	}
 
 	signIn() {
 		if (!this.afAuth.auth.currentUser) {
-			this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => this.loginLabel(this.LOGOUT));
+			this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
 		} else {
-			this.afAuth.auth.signOut().then(() => this.loginLabel(this.LOGIN));
+			this.afAuth.auth.signOut();
 		}
 	}
 
