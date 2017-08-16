@@ -21,12 +21,12 @@ import { VotersComponent } from './voters/voters.component';
 import { SimpleTimer } from 'ng2-simple-timer';
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyCLDrCqruQGe9wSdjE7bxd_yn4Xgr1qTi0',
-  authDomain: 'extimator-4faf2.firebaseapp.com',
-  databaseURL: 'https://extimator-4faf2.firebaseio.com',
-  projectId: 'extimator-4faf2',
-  storageBucket: 'extimator-4faf2.appspot.com',
-  messagingSenderId: '123216614544'
+  apiKey: "AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg",
+  authDomain: "voting-mx.firebaseapp.com",
+  databaseURL: "https://voting-mx.firebaseio.com",
+  projectId: "voting-mx",
+  storageBucket: "voting-mx.appspot.com",
+  messagingSenderId: "97661944716"
 };
 
 @NgModule({
@@ -47,7 +47,7 @@ export const firebaseConfig = {
     InMemoryWebApiModule.forRoot(CardDbService),
     AngularFireModule.initializeApp(firebaseConfig),
     AppRoutingModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
   ],
   providers: [CardsService, VoteService, SimpleTimer],
   bootstrap: [AppComponent]

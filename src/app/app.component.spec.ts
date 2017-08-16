@@ -72,13 +72,4 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('Please select A card to Vote!');
   }));
 
-  it('should display a different title when changed', async(() => {
-    let comp = fixture.componentInstance;
-
-    comp.title = 'Abou El Nis';
-    fixture.detectChanges();
-
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Abou El Nis');
-  }));
 });

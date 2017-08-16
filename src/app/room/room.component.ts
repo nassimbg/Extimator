@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SimpleTimer } from 'ng2-simple-timer';
+import { AngularFireAuth } from 'angularfire2/auth';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-room',
@@ -11,7 +13,11 @@ export class RoomComponent implements OnInit {
   timerId: string;
   counter = 0;
   timerButton = 'Start';
-  constructor(private st: SimpleTimer) { }
+  constructor(private st: SimpleTimer, public afAuth: AngularFireAuth) {
+    if(!this.afAuth.auth.currentUser){
+      Router.prototype.navigateByUrl("./");
+    }
+  }
 
   ngOnInit() {
     this.st.newTimer('1sec', 1);
