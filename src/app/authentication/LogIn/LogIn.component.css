@@ -1,0 +1,19 @@
+div {
+    background-color: #453232!important;
+    color:red;
+}
+
+#lock {
+    width:15%;
+    margin: 1.5em auto 4em auto;
+    display:block;
+}
+
+
+#google {
+    border: 1px solid hsl(204, 2%, 59%);
+    background: #fff  url('/assets/images/GoogleLogo.svg') no-repeat;
+    margin: 1.5em auto 4em auto;
+    display: block;
+}
+

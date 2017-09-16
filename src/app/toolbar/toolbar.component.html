@@ -1,0 +1,8 @@
+<md-toolbar color="">
+  <span class="title" routerLink="/">eXtimater</span>
+  <span class="title-spacer"></span>
+  <md-button-toggle (change)="logIn()">{{LogInStatus}}</md-button-toggle>
+  
+
+  <a *ngIf=isLoggedIn md-button class="example-icon" routerLink="/room" [disableRipple]="true" routerLinkActive="inactive">create room</a>
+</md-toolbar>

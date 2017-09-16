@@ -1,3 +1,4 @@
+import { AngularFireAuthModule } from 'angularfire2/auth/auth.module';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
@@ -18,8 +19,17 @@ import { MaterialModule } from './material/material.module';
 import { RoomComponent } from './room/room.component';
 import { VoteService } from 'app/vote-service/vote.service';
 import { VotersComponent } from './voters/voters.component';
+<<<<<<< 5dde991fdd4f4feedc49e33054d09cb8009ea6fb
 import { SimpleTimer } from 'ng2-simple-timer';
 import { DisplayedVote } from "app/voters/displayedVote.component";
+import { LogInComponent } from "app/authentication/LogIn/LogIn.component";
+import { ToolbarComponent } from "app/toolbar/toolbar.component";
+import { AuthService } from "app/authentication/service/Auth.service";
+=======
+import { AuthService } from 'app/authentication/service/Auth.service';
+import { LogInComponent } from 'app/authentication/LogIn/LogIn.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+>>>>>>> authentication service
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg",
@@ -38,7 +48,9 @@ export const firebaseConfig = {
     RoomComponent,
     VotersComponent,
     VotersComponent,
-    DisplayedVote
+    DisplayedVote,
+    LogInComponent,
+    ToolbarComponent
 ],
   imports: [
     BrowserModule,
@@ -50,8 +62,9 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AppRoutingModule,
     AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
-  providers: [CardsService, VoteService, SimpleTimer],
+  providers: [CardsService, VoteService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

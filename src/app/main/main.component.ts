@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AuthService
+} from '../authentication/service/Auth.service';
+import {
+  print
+} from 'util';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +16,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  name: String;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    this.authService.getUser().subscribe(user => {
+      if (user == null) {
+        this.name = null;
+      } else {
+        this.name = user.displayName
+      }
+    });
   }
-
 }

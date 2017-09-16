@@ -16,32 +16,6 @@ import { ChangeDetectorRef } from "@angular/core";
 
 
 export class AppComponent {
-	LOGIN = "login";
-	LOGOUT = "logout";
-	loginButton: string;
-
-	constructor(public afAuth: AngularFireAuth, public changeDetectorRef: ChangeDetectorRef) {
-		this.afAuth.authState.subscribe(auth => {
-			if (auth) {
-				this.loginButton = this.LOGOUT;
-			} else {
-				this.loginButton = this.LOGIN;
-			}
-		});
-	}
-
-	signIn() {
-		if (!this.afAuth.auth.currentUser) {
-			this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-		} else {
-			this.afAuth.auth.signOut();
-		}
-	}
-
-	loginLabel(label: string) {
-		this.loginButton = label;
-		this.changeDetectorRef.detectChanges();
-	}
 }
 
 
