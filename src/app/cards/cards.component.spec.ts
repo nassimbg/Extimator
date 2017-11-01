@@ -2,7 +2,6 @@ import { Card } from '../card/card';
 import { HttpModule } from '@angular/http';
 import { CardsService } from '../card-service/cards.service';
 import { FormsModule } from '@angular/forms';
-import { CardDbService } from '../in-memory/in-memory-db.service';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';

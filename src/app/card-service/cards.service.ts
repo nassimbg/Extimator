@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {Headers, Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CardsService {
@@ -21,5 +22,10 @@ export class CardsService {
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+
+  public getCardValueFor(cardId : number):Observable<string>{ 
+      return this.http.get(this.cardsUrl + "/1")
+      .map(p => p.json().data.title as string);
   }
 }

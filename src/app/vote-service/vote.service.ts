@@ -6,6 +6,8 @@ import {
   AngularFireDatabase,
   FirebaseListObservable
 } from 'angularfire2/database';
+
+import 'firebase/database';
 import {
   Vote
 } from 'app/voters/vote';
@@ -20,7 +22,7 @@ export class VoteService {
   constructor(private af: AngularFireDatabase) {
     // this.af.database.ref().child().orderByChild()
     // this.af.database.ref().on()
-    this.items = this.af.list('/votes', {
+    this.items = this.af.list('/Room/estimations/estimationUID1/votes', {
       query: {
         limitToLast: 50
       }
@@ -32,7 +34,7 @@ export class VoteService {
     // check this to reach children
     // or find a way to use the query
     // this.items.$ref.ref.child()
-    this.items.update(vote.name, vote)
+    this.items.push(vote)
       .catch(this.handleError);
   }
 

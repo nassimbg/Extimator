@@ -19,6 +19,7 @@ import { RoomComponent } from './room/room.component';
 import { VoteService } from 'app/vote-service/vote.service';
 import { VotersComponent } from './voters/voters.component';
 import { SimpleTimer } from 'ng2-simple-timer';
+import { DisplayedVote } from "app/voters/displayedVote.component";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg",
@@ -36,7 +37,8 @@ export const firebaseConfig = {
     MainComponent,
     RoomComponent,
     VotersComponent,
-    VotersComponent
+    VotersComponent,
+    DisplayedVote
 ],
   imports: [
     BrowserModule,

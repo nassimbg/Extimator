@@ -1,6 +1,8 @@
-import { Card } from '../card/card';
 
-export class Vote {
-    name: string;
-    card: Card;
+
+export class Vote  {
+    userID: string;
+    cardId: number;
+
+  
 }

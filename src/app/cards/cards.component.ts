@@ -23,7 +23,7 @@ export class CardsComponent implements OnInit {
   }
 
   private getCards(): void {
-    this.cardsService.getCards().then(cards => this.cards = cards);
+  this.cardsService.getCards().then(cards => this.cards = cards);
   }
 
   onSelect(card: Card): void {
@@ -32,8 +32,8 @@ export class CardsComponent implements OnInit {
 
   onCheck(): void {
     const vote = new Vote();
-    vote.name = 'nassim';
-    vote.card = this.selectedCard;
+    vote.userID = 'nassimUID';
+    vote.cardId = this.selectedCard.id;
 
     this.voteService.vote(vote);
   }
