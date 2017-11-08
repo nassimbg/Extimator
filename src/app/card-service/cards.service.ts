@@ -25,8 +25,8 @@ export class CardsService {
     return Promise.reject(error.message || error);
   }
 
-  public getCardValueFor(cardId : number):Observable<string>{ 
-      return this.http.get(this.cardsUrl + "/"+cardId)
+  public getCardValueFor(cardId: number): Observable<string> {
+      return this.http.get(this.cardsUrl + '/' + cardId)
       .map(p => p.json().data.title as string);
   }
 }

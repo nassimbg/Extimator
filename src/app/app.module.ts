@@ -19,19 +19,18 @@ import { MaterialModule } from './material/material.module';
 import { RoomComponent } from './room/room.component';
 import { VoteService } from 'app/vote-service/vote.service';
 import { VotersComponent } from './voters/voters.component';
-import { SimpleTimer } from 'ng2-simple-timer';
-import { DisplayedVote } from "app/voters/displayedVote.component";
-import { ToolbarComponent } from "app/toolbar/toolbar.component";
-import { AuthService } from "app/authentication/service/Auth.service";
+import { DisplayedVoteComponent } from 'app/voters/displayedVote.component';
+import { ToolbarComponent } from 'app/toolbar/toolbar.component';
+import { AuthService } from 'app/authentication/service/Auth.service';
 import { LogInComponent } from 'app/authentication/LogIn/LogIn.component';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg",
-  authDomain: "voting-mx.firebaseapp.com",
-  databaseURL: "https://voting-mx.firebaseio.com",
-  projectId: "voting-mx",
-  storageBucket: "voting-mx.appspot.com",
-  messagingSenderId: "97661944716"
+  apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
+  authDomain: 'voting-mx.firebaseapp.com',
+  databaseURL: 'https://voting-mx.firebaseio.com',
+  projectId: 'voting-mx',
+  storageBucket: 'voting-mx.appspot.com',
+  messagingSenderId: '97661944716'
 };
 
 @NgModule({
@@ -42,7 +41,7 @@ export const firebaseConfig = {
     RoomComponent,
     VotersComponent,
     VotersComponent,
-    DisplayedVote,
+    DisplayedVoteComponent,
     LogInComponent,
     ToolbarComponent
 ],

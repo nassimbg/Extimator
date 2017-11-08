@@ -1,19 +1,19 @@
 <div class="container">
   <div class="row justify-content-center">
-    <md-card class="col-lg-3 col-md-3 col-sm-3 col-xs-1" *ngFor="let card of cards; let i = index" (click)="onSelect(card)">
-      <md-card-header class="justify-content-center">{{card.title}}</md-card-header>
-    </md-card>
+    <mat-card class="col-lg-3 col-mat-3 col-sm-3 col-xs-1" *ngFor="let card of cards; let i = index" (click)="onSelect(card)">
+      <mat-card-header class="justify-content-center">{{card.title}}</mat-card-header>
+    </mat-card>
   </div>
 
 
   <div class="row justify-content-center mt-5">
-    <md-card *ngIf="selectedCard" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <md-card-header class="justify-content-center">
+    <mat-card *ngIf="selectedCard" class="col-lg-3 col-mat-4 col-sm-6 col-xs-12">
+      <mat-card-header class="justify-content-center">
         <div>{{selectedCard.title | uppercase}}</div>
-      </md-card-header>
-      <md-card-actions>
-        <button md-button class="mx-auto d-flex p-2" (click)="onCheck()"><md-icon>check</md-icon></button>
-      </md-card-actions>
-    </md-card>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-button class="mx-auto d-flex p-2" (click)="onCheck()"><mat-icon>check</mat-icon></button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>
