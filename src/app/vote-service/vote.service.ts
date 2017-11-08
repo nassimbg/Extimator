@@ -4,10 +4,8 @@ import {
 } from '@angular/core';
 import {
   AngularFireDatabase,
-  FirebaseListObservable
+  AngularFireList
 } from 'angularfire2/database';
-
-import 'firebase/database';
 import {
   Vote
 } from 'app/voters/vote';
@@ -17,16 +15,13 @@ import {
 
 @Injectable()
 export class VoteService {
-  items: FirebaseListObservable < any[] > ;
+  itemsRef: AngularFireList < any > ;
+  items: Observable<Vote[]>;
 
   constructor(private af: AngularFireDatabase) {
-    // this.af.database.ref().child().orderByChild()
-    // this.af.database.ref().on()
-    this.items = this.af.list('/Room/estimations/estimationUID1/votes', {
-      query: {
-        limitToLast: 50
-      }
-    });
+    this.itemsRef = this.af.list('/Room/estimations/estimationUID1/votes');
+    // may use snapShotChanges to get the keys also
+    this.items = this.itemsRef.valueChanges()
 
   }
 
@@ -34,7 +29,7 @@ export class VoteService {
     // check this to reach children
     // or find a way to use the query
     // this.items.$ref.ref.child()
-    this.items.push(vote)
+    this.itemsRef.set(vote.name, vote)
       .catch(this.handleError);
   }
 
@@ -46,7 +41,4 @@ export class VoteService {
   getVotes(): Observable < Vote[] > {
     return this.items;
   }
-
-
-
 }

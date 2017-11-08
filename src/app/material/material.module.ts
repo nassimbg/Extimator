@@ -5,20 +5,20 @@ import {
   NgModule
 } from '@angular/core';
 import {
-  MdButtonModule,
-  MdMenuModule,
-  MdToolbarModule,
-  MdIconModule,
-  MdCardModule,
-  MdSidenavModule,
-  MdButtonToggleModule
+  MatButtonModule,
+  MatMenuModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatCardModule,
+  MatSidenavModule,
+  MatButtonToggleModule
 } from '@angular/material';
 
 
 @NgModule({
-  imports: [BrowserAnimationsModule, MdButtonModule, MdMenuModule, MdToolbarModule, 
-  MdIconModule, MdCardModule, MdSidenavModule, MdButtonToggleModule],
-  exports: [BrowserAnimationsModule, MdButtonModule, MdMenuModule, MdToolbarModule, 
-  MdIconModule, MdCardModule, MdSidenavModule, MdButtonToggleModule]
+  imports: [BrowserAnimationsModule, MatButtonModule, MatMenuModule, MatToolbarModule,
+  MatIconModule, MatCardModule, MatSidenavModule, MatButtonToggleModule],
+  exports: [BrowserAnimationsModule, MatButtonModule, MatMenuModule, MatToolbarModule,
+  MatIconModule, MatCardModule, MatSidenavModule, MatButtonToggleModule]
 })
 export class MaterialModule {}

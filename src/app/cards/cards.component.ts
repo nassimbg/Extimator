@@ -1,10 +1,8 @@
 import { AuthService } from '../authentication/service/Auth.service';
 import { CardsService } from '../card-service/cards.service';
 import { VoteService } from '../vote-service/vote.service';
-import {AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Component, OnInit } from '@angular/core';
 import { Card } from 'app/card/card';
-import { Observable } from 'rxjs/Rx';
 import { Vote } from 'app/voters/vote';
 
 @Component({

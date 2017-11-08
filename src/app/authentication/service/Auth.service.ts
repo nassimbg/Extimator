@@ -11,12 +11,12 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
 
   user: Observable<firebase.User>;
-  
+
   constructor(private af: AngularFireAuth) {
     this.user = af.authState;
   }
 
-  loginWithGoogle(): firebase.Promise < any > {
+  loginWithGoogle(): Promise < any > {
     return this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
   }
 
