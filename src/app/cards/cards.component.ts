@@ -21,11 +21,11 @@ export class CardsComponent implements OnInit {
 
   ngOnInit() {
     this.getCards();
-    this.authService.getUser().subscribe(user => this.userName = user.displayName);
+    this.authService.getUser().subscribe(user => this.userName = user.uid);
   }
 
   private getCards(): void {
-  this.cardsService.getCards().then(cards => this.cards = cards);
+  this.cardsService.getCards().subscribe(cards => this.cards = cards);
   }
 
   onSelect(card: Card): void {

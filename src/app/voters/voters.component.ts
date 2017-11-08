@@ -1,29 +1,22 @@
-import { VoteService } from '../vote-service/vote.service';
-import { CardsService } from '../card-service/cards.service';
-import { Component, OnInit } from '@angular/core';
-import { Vote } from 'app/voters/vote';
-import { Observable } from 'rxjs/Observable';
+import {VoteService} from '../vote-service/vote.service';
+import {Component, OnInit} from '@angular/core';
+import {Vote} from 'app/voters/vote';
+
 @Component({
   selector: 'app-voters',
   templateUrl: './voters.component.html',
   styleUrls: ['./voters.component.css']
 })
 export class VotersComponent implements OnInit {
-
+//TODO emove unused code
   votes: Vote[];
-  value:string;
 
-  
-  constructor(private voteService: VoteService, private cardsService : CardsService) {
-     
+
+  constructor(private voteService: VoteService) {
   }
 
   ngOnInit() {
     this.voteService.getVotes().subscribe(p => this.votes = p);
     console.log(this.votes);
   }
-
-   public getCardValue(cardId : number):Observable<String>{
-      return this.cardsService.getCardValueFor(cardId);
-    }
 }
