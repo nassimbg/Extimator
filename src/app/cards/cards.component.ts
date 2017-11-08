@@ -18,11 +18,12 @@ export class CardsComponent implements OnInit {
   selectedCard: Card;
   userName: string;
 
+
   constructor(private cardsService: CardsService, private voteService: VoteService, private authService: AuthService) {}
 
   ngOnInit() {
     this.getCards();
-    this.authService.getUser().subscribe(user => this.userName = user.uid);
+    this.authService.getUser().subscribe(user => this.userName = user.displayName);
   }
 
   private getCards(): void {

@@ -20,6 +20,7 @@ export class DisplayedVote implements OnInit{
 
        public ngOnInit() {
          this.userID = this.votey.userID;
+         console.log(this.votey.cardId);
          this.cardsService.getCardValueFor(this.votey.cardId).subscribe(p => this.cardTitle = p);
        }
   

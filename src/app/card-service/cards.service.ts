@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {Headers, Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -25,7 +26,7 @@ export class CardsService {
   }
 
   public getCardValueFor(cardId : number):Observable<string>{ 
-      return this.http.get(this.cardsUrl + "/1")
+      return this.http.get(this.cardsUrl + "/"+cardId)
       .map(p => p.json().data.title as string);
   }
 }
