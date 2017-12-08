@@ -1,6 +1,4 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { VoteService } from './vote.service';
 
 describe('Service: Vote', () => {
@@ -14,6 +12,6 @@ describe('Service: Vote', () => {
     'should ...',
     inject([VoteService], (service: VoteService) => {
       expect(service).toBeTruthy();
-    })
+    }),
   );
 });

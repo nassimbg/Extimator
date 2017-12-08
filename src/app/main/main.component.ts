@@ -1,24 +1,19 @@
-import { AuthService } from '../authentication/service/Auth.service';
-import { print } from 'util';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../authentication/service/Auth.service';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
+  templateUrl: './main.component.html',
 })
 export class MainComponent implements OnInit {
-  name: String;
+  public name: string;
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    this.authService.getUser().subscribe(user => {
-      if (user == null) {
-        this.name = null;
-      } else {
-        this.name = user.displayName;
-      }
+  public ngOnInit() {
+    this.authService.getUser().subscribe((user) => {
+      this.name = !!user ? user.displayName : null;
     });
   }
 }

@@ -1,13 +1,7 @@
-import { Card } from '../card/card';
 import { HttpModule } from '@angular/http';
-import { CardsService } from '../card-service/cards.service';
-import { FormsModule } from '@angular/forms';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { Card } from '../card/card';
+import { CardsService } from '../card-service/cards.service';
 import { CardsComponent } from './cards.component';
 
 describe('CardsComponent', () => {
@@ -21,10 +15,10 @@ describe('CardsComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [CardsComponent],
-        providers: [CardsService],
         imports: [HttpModule],
+        providers: [CardsService],
       }).compileComponents();
-    })
+    }),
   );
 
   beforeEach(() => {
@@ -34,7 +28,7 @@ describe('CardsComponent', () => {
 
     cards = [{ id: 1, title: '0.5' }];
     spy = spyOn(cardsService, 'getCards').and.returnValue(
-      Promise.resolve(cards)
+      Promise.resolve(cards),
     );
     fixture.detectChanges();
   });
@@ -51,6 +45,6 @@ describe('CardsComponent', () => {
         expect(component.cards).not.toBeNull();
         expect(component.cards).toBe(cards);
       });
-    })
+    }),
   );
 });

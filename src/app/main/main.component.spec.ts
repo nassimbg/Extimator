@@ -1,8 +1,4 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
 import { MainComponent } from './main.component';
 
 describe('MainComponent', () => {
@@ -14,7 +10,7 @@ describe('MainComponent', () => {
       TestBed.configureTestingModule({
         declarations: [MainComponent],
       }).compileComponents();
-    })
+    }),
   );
 
   beforeEach(() => {

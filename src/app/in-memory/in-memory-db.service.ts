@@ -1,8 +1,8 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class CardDbService implements InMemoryDbService {
-  createDb() {
-    let cards = [
+  public createDb() {
+    const cards = [
       { id: 0, title: '0' },
       { id: 1, title: '0.5' },
       { id: 2, title: '1' },

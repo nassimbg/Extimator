@@ -8,6 +8,7 @@
     "ordered-imports": false,
     "no-string-literal": false,
     "max-classes-per-file": [false],
-    "no-object-literal-type-assertion": false
+    "no-object-literal-type-assertion": false,
+    "no-submodule-imports": false
   }
 }

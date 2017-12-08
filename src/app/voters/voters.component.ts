@@ -1,20 +1,19 @@
-import { VoteService } from '../vote-service/vote.service';
 import { Component, OnInit } from '@angular/core';
-import { Vote } from 'app/voters/vote';
+import { VoteService } from '../vote-service/vote.service';
+import { Vote } from '../voters/vote';
 
 @Component({
   selector: 'app-voters',
-  templateUrl: './voters.component.html',
   styleUrls: ['./voters.component.css'],
+  templateUrl: './voters.component.html',
 })
 export class VotersComponent implements OnInit {
-  //TODO emove unused code
-  votes: Vote[];
+  // TODO remove unused code
+  public votes: Vote[];
 
   constructor(private voteService: VoteService) {}
 
-  ngOnInit() {
-    this.voteService.getVotes().subscribe(p => (this.votes = p));
-    console.log(this.votes);
+  public ngOnInit() {
+    this.voteService.getVotes().subscribe((p) => (this.votes = p));
   }
 }

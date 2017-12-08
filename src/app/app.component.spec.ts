@@ -1,13 +1,8 @@
-import { CardsService } from './card-service/cards.service';
-import { CardsComponent } from './cards/cards.component';
-import { CardDbService } from './in-memory/in-memory-db.service';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-/* tslint:disable:no-unused-variable */
-
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CardsService } from './card-service/cards.service';
+import { CardsComponent } from './cards/cards.component';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -29,7 +24,7 @@ describe('AppComponent', () => {
 
     const cards = [{ id: 1, title: '0.5' }];
     spy = spyOn(cardsService, 'getCards').and.returnValue(
-      Promise.resolve(cards)
+      Promise.resolve(cards),
     );
 
     fixture.detectChanges();
@@ -40,7 +35,7 @@ describe('AppComponent', () => {
     async(() => {
       const app = fixture.debugElement.componentInstance;
       expect(app).toBeTruthy();
-    })
+    }),
   );
 
   it(
@@ -48,8 +43,8 @@ describe('AppComponent', () => {
     async(() => {
       const compiled = fixture.debugElement.nativeElement;
       expect(compiled.querySelector('h1').textContent).toContain(
-        'Please select A card to Vote!'
+        'Please select A card to Vote!',
       );
-    })
+    }),
   );
 });

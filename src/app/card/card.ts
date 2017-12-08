@@ -1,7 +1,6 @@
-// @ts-check
 export class Card {
-  id: number;
-  title: string;
+  public id: number;
+  public title: string;
 
   constructor(id: number, title: string) {
     this.id = id;
