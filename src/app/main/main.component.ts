@@ -1,21 +1,13 @@
-import {
-  AuthService
-} from '../authentication/service/Auth.service';
-import {
-  print
-} from 'util';
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { AuthService } from '../authentication/service/Auth.service';
+import { print } from 'util';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-
   name: String;
 
   constructor(private authService: AuthService) {}
@@ -25,7 +17,7 @@ export class MainComponent implements OnInit {
       if (user == null) {
         this.name = null;
       } else {
-        this.name = user.displayName
+        this.name = user.displayName;
       }
     });
   }

@@ -8,24 +8,26 @@ import { Vote } from 'app/voters/vote';
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.css']
+  styleUrls: ['./cards.component.css'],
 })
 export class CardsComponent implements OnInit {
-
   cards: Card[];
   selectedCard: Card;
   userName: string;
 
-
-  constructor(private cardsService: CardsService, private voteService: VoteService, private authService: AuthService) {}
+  constructor(
+    private cardsService: CardsService,
+    private voteService: VoteService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.getCards();
-    this.authService.getUser().subscribe(user => this.userName = user.uid);
+    this.authService.getUser().subscribe(user => (this.userName = user.uid));
   }
 
   private getCards(): void {
-  this.cardsService.getCards().subscribe(cards => this.cards = cards);
+    this.cardsService.getCards().subscribe(cards => (this.cards = cards));
   }
 
   onSelect(card: Card): void {

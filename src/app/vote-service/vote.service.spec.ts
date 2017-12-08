@@ -6,11 +6,14 @@ import { VoteService } from './vote.service';
 describe('Service: Vote', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [VoteService]
+      providers: [VoteService],
     });
   });
 
-  it('should ...', inject([VoteService], (service: VoteService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should ...',
+    inject([VoteService], (service: VoteService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 });

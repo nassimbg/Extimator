@@ -1,17 +1,17 @@
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../authentication/service/Auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
+  styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent implements OnInit {
   isLoggedIn: boolean;
   LogInStatus: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authService.getUser().subscribe(user => {
@@ -22,7 +22,7 @@ export class ToolbarComponent implements OnInit {
         this.isLoggedIn = true;
         this.LogInStatus = 'Log Out';
       }
-    })
+    });
   }
 
   logIn() {
@@ -32,5 +32,4 @@ export class ToolbarComponent implements OnInit {
       this.router.navigate(['logIn']);
     }
   }
-
 }

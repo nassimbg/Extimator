@@ -1,5 +1,5 @@
 import { AngularFireAuthModule } from 'angularfire2/auth/auth.module';
-import { AngularFireModule} from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { NgModule } from '@angular/core';
@@ -30,7 +30,7 @@ export const firebaseConfig = {
   databaseURL: 'https://voting-mx.firebaseio.com',
   projectId: 'voting-mx',
   storageBucket: 'voting-mx.appspot.com',
-  messagingSenderId: '97661944716'
+  messagingSenderId: '97661944716',
 };
 
 @NgModule({
@@ -43,8 +43,8 @@ export const firebaseConfig = {
     VotersComponent,
     DisplayedVoteComponent,
     LogInComponent,
-    ToolbarComponent
-],
+    ToolbarComponent,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -55,9 +55,9 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AppRoutingModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   providers: [CardsService, VoteService, AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

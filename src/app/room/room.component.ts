@@ -3,14 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
-  styleUrls: ['./room.component.css']
+  styleUrls: ['./room.component.css'],
 })
 export class RoomComponent implements OnInit {
+  votingButton: string;
+  votingEnabled: boolean;
 
- votingButton: string;
- votingEnabled: boolean;
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.votingButton = 'start voting';

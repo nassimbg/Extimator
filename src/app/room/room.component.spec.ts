@@ -9,12 +9,13 @@ describe('RoomComponent', () => {
   let component: RoomComponent;
   let fixture: ComponentFixture<RoomComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RoomComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [RoomComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RoomComponent);

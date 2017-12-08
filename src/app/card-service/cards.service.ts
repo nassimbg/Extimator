@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 @Injectable()
 export class CardsService {
@@ -16,13 +16,12 @@ export class CardsService {
     this.type = 'SCRUM';
     this.itemsRef = this.af.list('/CARDS/' + this.type);
     // may use snapShotChanges to get the keys also
-    this.items = this.itemsRef.snapshotChanges().map(changes =>{ return changes.map(
-      a => {
+    this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(a => {
         const key = parseInt(a.key);
         const value = a.payload.val();
-        return new Card(key, value)
-      }
-    )
+        return new Card(key, value);
+      });
     });
   }
 
@@ -36,8 +35,8 @@ export class CardsService {
   }
 
   public getCardValueFor(cardId: number): Observable<string> {
-      return this.items
-        .map( cards => cards.filter(card => card.id === cardId)[0])
-        .map(p => p.title)
+    return this.items
+      .map(cards => cards.filter(card => card.id === cardId)[0])
+      .map(p => p.title);
   }
 }

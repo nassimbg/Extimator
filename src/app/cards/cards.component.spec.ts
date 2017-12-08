@@ -17,15 +17,15 @@ describe('CardsComponent', () => {
   let spy: jasmine.Spy;
   let cards: Card[];
 
-  beforeEach(async(() => {
-
-    TestBed.configureTestingModule({
-      declarations: [CardsComponent],
-      providers: [CardsService],
-      imports: [HttpModule]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [CardsComponent],
+        providers: [CardsService],
+        imports: [HttpModule],
+      }).compileComponents();
     })
-      .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CardsComponent);
@@ -33,20 +33,24 @@ describe('CardsComponent', () => {
     cardsService = fixture.debugElement.injector.get(CardsService);
 
     cards = [{ id: 1, title: '0.5' }];
-    spy = spyOn(cardsService, 'getCards')
-      .and.returnValue(Promise.resolve(cards));
+    spy = spyOn(cardsService, 'getCards').and.returnValue(
+      Promise.resolve(cards)
+    );
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should fill cards field', async(() => {
-
-    fixture.whenStable().then(() => { // wait for async getQuote
-      fixture.detectChanges(); // update view with quote
-      expect(component.cards).not.toBeNull();
-      expect(component.cards).toBe(cards);
-    });
-  }));
+  it(
+    'should fill cards field',
+    async(() => {
+      fixture.whenStable().then(() => {
+        // wait for async getQuote
+        fixture.detectChanges(); // update view with quote
+        expect(component.cards).not.toBeNull();
+        expect(component.cards).toBe(cards);
+      });
+    })
+  );
 });

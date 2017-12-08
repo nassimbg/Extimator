@@ -6,11 +6,14 @@ import { CardsService } from './cards.service';
 xdescribe('CardsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CardsService]
+      providers: [CardsService],
     });
   });
 
-  it('should ...', inject([CardsService], (service: CardsService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should ...',
+    inject([CardsService], (service: CardsService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 });

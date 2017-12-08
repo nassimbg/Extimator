@@ -1,6 +1,4 @@
-
-
-export class Vote  {
-    userID: string;
-    cardId: number;
+export class Vote {
+  userID: string;
+  cardId: number;
 }
