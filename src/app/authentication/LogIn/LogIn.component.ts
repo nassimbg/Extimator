@@ -1,6 +1,7 @@
-import { Router } from '@angular/router';
-import { Component } from '@angular/core';
-import { AuthService } from '../service/Auth.service';
+import {Router} from '@angular/router';
+import {Component} from '@angular/core';
+import {AuthService} from '../service/Auth.service';
+import {UserManager} from "../../UserManagement/UserManager.service";
 
 @Component({
   selector: 'log-in',
@@ -10,11 +11,13 @@ import { AuthService } from '../service/Auth.service';
 export class LogInComponent {
   public error: Error;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,private userManagerService: UserManager) {
+  }
 
   public login() {
     this.authService
       .loginWithGoogle()
+      .then((userData) => this.userManagerService.registerUser(userData))
       .then((data) => this.router.navigate(['']))
       .catch((error) => (this.error = error));
   }
