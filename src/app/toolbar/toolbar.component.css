@@ -1,33 +1,31 @@
-.example-icon {
-    padding: 0 14px;
-  }
-  
-  .example-icon:visited {
-      text-decoration: inherit;
-      color: inherit;
-      cursor: auto;
-  }
-  
-  .example-icon:link {
-      text-decoration: inherit;
-      color: inherit;
-      cursor: auto;
-  }
-  
-  .title-spacer {
-    flex: 1 1 auto;
-  }
-  
-  .title:hover {
-  cursor:pointer
-  }
-  
-  md-toolbar {
-    background-color: #309c5b;
-  }
-  
-  .router {
-    height:100%;
-    background-color: inherit;
-  }
-  
+.toolbar {
+  display: flex;
+}
+
+.title {
+  flex: 1;
+}
+.title:hover {
+  cursor: pointer
+}
+
+.icon-toolbar {
+  background-color: inherit;
+}
+
+.icon-toolbar:visited {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.icon-toolbar:hover {
+  background-color: #4f5453;
+  cursor: pointer;
+}
+
+.icon-toolbar:link {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: pointer;
+}
