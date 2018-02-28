@@ -1,26 +1,33 @@
 import { Component, Input, OnInit } from '@angular/core/';
-import { Vote } from '../voters/vote';
+import { Vote } from '../vote-service/vote';
 import { CardsService } from '../card-service/cards.service';
+import {UserManager} from "../UserManagement/UserManager.service";
 
 @Component({
   selector: 'app-displayed-vote',
   styleUrls: [],
-  template: `<mat-card class="col-lg-3 col-md-3 col-sm-3 col-xs-1">
+  template: `
+    <mat-card class="col-lg-3 col-md-3 col-sm-3 col-xs-1">
             <mat-card-header class="justify-content-center">{{userID}}</mat-card-header>
-            <mat-card-content class="justify-content-center">{{cardTitle}}</mat-card-content></mat-card>`,
+      <img mat-card-image [src]='photo' alt="Photo of a Shiba Inu">
+            <mat-card-content class="justify-content-center">{{cardTitle}}</mat-card-content>
+  </mat-card>`,
 })
 export class DisplayedVoteComponent implements OnInit {
   public userID: string;
   public cardTitle: string;
+  public photo: string;
 
   @Input() public votey: Vote;
 
-  constructor(private cardsService: CardsService) {}
+  constructor(private cardsService: CardsService, private userService: UserManager) {}
 
   public ngOnInit() {
-    this.userID = this.votey.userID;
+    this.userService.findUser(this.votey.userID)
+      .subscribe(user => {this.userID = user.name; this.photo = user.photoURL});
+
     this.cardsService
       .getCardValueFor(this.votey.cardId)
-      .subscribe((p) => (this.cardTitle = p));
+      .subscribe(cardTitle => (this.cardTitle = cardTitle));
   }
 }

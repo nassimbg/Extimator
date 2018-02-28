@@ -17,7 +17,7 @@ export class LogInComponent {
   public login() {
     this.authService
       .loginWithGoogle()
-      .then((userData) => this.userManagerService.registerUser(userData))
+      .then((userData) => this.authService.getUser().subscribe(user => this.userManagerService.registerUser(user)))
       .then((data) => this.router.navigate(['']))
       .catch((error) => (this.error = error));
   }

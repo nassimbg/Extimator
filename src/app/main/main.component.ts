@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
 
   public ngOnInit() {
     this.authService.getUser().subscribe((user) => {
-      this.name = !!user ? user.displayName : null;
+      this.name = !!user ? user.name : null;
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VoteService } from '../vote-service/vote.service';
-import { Vote } from '../voters/vote';
+import { Vote } from '../vote-service/vote';
 
 @Component({
   selector: 'app-voters',
@@ -8,7 +8,6 @@ import { Vote } from '../voters/vote';
   templateUrl: './voters.component.html',
 })
 export class VotersComponent implements OnInit {
-  // TODO remove unused code
   public votes: Vote[];
 
   constructor(private voteService: VoteService) {}

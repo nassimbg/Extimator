@@ -3,7 +3,7 @@ import { AuthService } from '../authentication/service/Auth.service';
 import { CardsService } from '../card-service/cards.service';
 import { VoteService } from '../vote-service/vote.service';
 import { Card } from '../card/card';
-import { Vote } from '../voters/vote';
+import { Vote } from '../vote-service/vote';
 
 @Component({
   selector: 'app-cards',
@@ -13,7 +13,7 @@ import { Vote } from '../voters/vote';
 export class CardsComponent implements OnInit {
   public cards: Card[];
   public selectedCard: Card;
-  private userName: string;
+  private userId: string;
 
   constructor(
     private cardsService: CardsService,
@@ -23,7 +23,7 @@ export class CardsComponent implements OnInit {
 
   public ngOnInit() {
     this.getCards();
-    this.authService.getUser().subscribe((user) => (this.userName = user.uid));
+    this.authService.getUser().subscribe((user) => (this.userId = user.id));
   }
 
   public onSelect(card: Card): void {
@@ -31,10 +31,7 @@ export class CardsComponent implements OnInit {
   }
 
   public onCheck(): void {
-    const vote: Vote = {};
-    vote.userID = this.userName;
-    vote.cardId = this.selectedCard.id;
-    this.voteService.vote(vote);
+    this.voteService.vote(new Vote(this.userId, this.selectedCard.id));
   }
 
   private getCards(): void {
