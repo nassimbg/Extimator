@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.title:focus {
+  outline: none;
+}
+
 .title {
   flex: 1;
 }
