@@ -20,6 +20,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthService } from './authentication/service/Auth.service';
 import { LogInComponent } from './authentication/LogIn/LogIn.component';
 import {UserManager} from "./UserManagement/UserManager.service";
+import {RoomService} from "./room/room-service/room.service";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
@@ -53,6 +54,6 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
   ],
-  providers: [CardsService, VoteService, AuthService, UserManager],
+  providers: [CardsService, VoteService, AuthService, UserManager, RoomService],
 })
 export class AppModule {}

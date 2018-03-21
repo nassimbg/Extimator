@@ -1,15 +1,25 @@
-<div class="row">
-  <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-    <div *ngIf="votingEnabled">
-      <app-cards></app-cards>
-    </div>
-    <div *ngIf="votingEnabled==false">
-      <app-voters></app-voters>
-    </div>
-
-  </div>
-
-  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+<mat-sidenav-container class="hello">
+  <mat-sidenav opened mode="side" position="end">
+    <h1>{{roomName}}</h1>
     <mat-button-toggle (change)="votingEnabler()">{{votingButton}}</mat-button-toggle>
+    <!--this will be uncommented after committing-->
+    <!--<app-participants [roomId]="roomId"></app-participants>-->
+    <div>
+
+
+    </div>
+  </mat-sidenav>
+
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+      <div *ngIf="votingEnabled">
+        <app-cards></app-cards>
+      </div>
+      <div *ngIf="votingEnabled==false">
+        <app-voters></app-voters>
+      </div>
+
+    </div>
+
   </div>
-</div>
+</mat-sidenav-container>
