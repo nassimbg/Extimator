@@ -20,6 +20,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthService } from './authentication/service/Auth.service';
 import { LogInComponent } from './authentication/LogIn/LogIn.component';
 import {UserManager} from "./UserManagement/UserManager.service";
+import { CreateRoomComponent } from './room/create-room/create-room.component';
 import {RoomService} from "./room/room-service/room.service";
 
 export const firebaseConfig = {
@@ -43,6 +44,7 @@ export const firebaseConfig = {
     DisplayedVoteComponent,
     LogInComponent,
     ToolbarComponent,
+    CreateRoomComponent,
   ],
   imports: [
     BrowserModule,
