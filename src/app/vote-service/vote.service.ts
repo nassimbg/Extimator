@@ -5,23 +5,20 @@ import { Vote } from './vote';
 
 @Injectable()
 export class VoteService {
-  private itemsRef: AngularFireList<any>;
-  private items: Observable<Vote[]>;
 
   constructor(private af: AngularFireDatabase) {
-    this.itemsRef = this.af.list('/Room/estimations/estimationUID1/votes');
-
-    this.items = this.itemsRef.snapshotChanges()
-      .map(SnapshotActionArray => SnapshotActionArray.map(vot => new Vote(vot.payload.key, vot.payload.val())));
   }
 
-  public vote(vote: Vote): void {
-    this.itemsRef.set(vote.userID, vote.cardId)
+  public vote(roomId: string, vote: Vote): void {
+    this.af.object(`/ROOMS/${roomId}/estimations/story1/votes/${vote.userID}`)
+      .set(vote.cardId)
       .catch(VoteService.handleError);
   }
 
-  public getVotes(): Observable<Vote[]> {
-    return this.items;
+  public getVotes(roomId: string): Observable<Vote[]> {
+    return this.af.list(`/ROOMS/${roomId}/estimations/story1/votes/`)
+      .snapshotChanges()
+      .map(SnapshotActionArray => SnapshotActionArray.map(vot => new Vote(vot.payload.key, vot.payload.val())));
   }
 
   private static handleError(error: any): Promise<any> {

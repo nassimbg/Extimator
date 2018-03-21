@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { VoteService } from '../vote-service/vote.service';
 import { Vote } from '../vote-service/vote';
 
@@ -10,9 +10,12 @@ import { Vote } from '../vote-service/vote';
 export class VotersComponent implements OnInit {
   public votes: Vote[];
 
+  @Input()
+  private roomId: string;
+
   constructor(private voteService: VoteService) {}
 
   public ngOnInit() {
-    this.voteService.getVotes().subscribe((p) => (this.votes = p));
+    this.voteService.getVotes(this.roomId).subscribe((p) => (this.votes = p));
   }
 }

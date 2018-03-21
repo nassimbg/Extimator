@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { AuthService } from '../authentication/service/Auth.service';
 import { CardsService } from '../card-service/cards.service';
 import { VoteService } from '../vote-service/vote.service';
@@ -14,6 +14,9 @@ export class CardsComponent implements OnInit {
   public cards: Card[];
   public selectedCard: Card;
   private userId: string;
+
+  @Input()
+  private roomId: string;
 
   constructor(
     private cardsService: CardsService,
@@ -31,7 +34,7 @@ export class CardsComponent implements OnInit {
   }
 
   public onCheck(): void {
-    this.voteService.vote(new Vote(this.userId, this.selectedCard.id));
+    this.voteService.vote(this.roomId, new Vote(this.userId, this.selectedCard.id));
   }
 
   private getCards(): void {
