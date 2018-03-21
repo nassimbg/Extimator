@@ -10,7 +10,7 @@ import {RoomService} from "../room-service/room.service";
 })
 export class CreateRoomComponent implements OnInit {
 
-  private room: Room;
+  public room: Room;
   constructor(private roomService: RoomService, private router: Router) { }
 
   ngOnInit() {

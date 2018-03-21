@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularFireAuthModule } from 'angularfire2/auth/auth.module';
+import { AngularFireAuthModule } from 'angularfire2/auth/';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
@@ -22,6 +22,7 @@ import { LogInComponent } from './authentication/LogIn/LogIn.component';
 import {UserManager} from "./UserManagement/UserManager.service";
 import { CreateRoomComponent } from './room/create-room/create-room.component';
 import {RoomService} from "./room/room-service/room.service";
+import { PickRoomComponent } from './room/pick-room/pick-room.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
@@ -45,6 +46,7 @@ export const firebaseConfig = {
     LogInComponent,
     ToolbarComponent,
     CreateRoomComponent,
+    PickRoomComponent,
   ],
   imports: [
     BrowserModule,

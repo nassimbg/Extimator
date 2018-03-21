@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase} from "angularfire2/database";
-import {AngularFireList} from "angularfire2/database/interfaces";
+import {AngularFireDatabase, snapshotChanges} from "angularfire2/database";
+import {AngularFireList, SnapshotAction} from "angularfire2/database/interfaces";
 import {Room} from "../room";
 import {Observable} from "rxjs/Observable";
 
@@ -28,5 +28,11 @@ export class RoomService {
   addParticipant(roomId: string, userId: string) {
     this.af.list(RoomService.roomsPath + roomId + RoomService.participant)
       .set(userId, userId);
+  }
+
+  getAllRooms(): Observable<any[]> {
+    return this.af.list(RoomService.roomsPath)
+      .snapshotChanges()
+      .map(snapshotChange => snapshotChange.map(room => [room.key, room.payload.val().name]))
   }
 }
