@@ -17,3 +17,7 @@ div {
     display: block;
 }
 
+#google:focus {
+  outline: none;
+}
+
