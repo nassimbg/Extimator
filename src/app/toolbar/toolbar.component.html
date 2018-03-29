@@ -1,6 +1,10 @@
 <mat-toolbar class="toolbar" color="primary">
-  <span class="title" routerLink="/">eXtimater</span>
-  <a *ngIf=isLoggedIn mat-raised-button class="icon-toolbar" routerLink="/create-room" routerLinkActive="inactive">create room</a>
-  <mat-button-toggle (change)="logIn()">{{LogInStatus}}</mat-button-toggle>
+  <a mat-button class="toolbar-button" routerLink="/" routerLinkActive="inactive"><h1>eXtimater</h1></a>
+  <span class="flexing"> </span>
+  <a *ngIf=isLoggedIn mat-button class="toolbar-button" routerLink="/create-room" routerLinkActive="inactive">Create Room</a>
+
+  <button  mat-icon-button class="loginButton" (click)="logIn()">
+    <img class="user-profile-image" [src]="profileImageUrl" alt="Avatar">
+  </button>
 
 </mat-toolbar>

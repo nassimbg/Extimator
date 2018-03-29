@@ -9,18 +9,18 @@ import { AuthService } from '../authentication/service/Auth.service';
 })
 export class ToolbarComponent implements OnInit {
   public isLoggedIn: boolean;
-  public LogInStatus: string;
+  public profileImageUrl: string;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   public ngOnInit() {
     this.authService.getUser().subscribe((user) => {
       if (user == null) {
-        this.LogInStatus = 'Log In';
+        this.profileImageUrl = 'assets/images/ic_account_circle_white_48px.svg';
         this.isLoggedIn = false;
       } else {
         this.isLoggedIn = true;
-        this.LogInStatus = 'Log Out';
+        this.profileImageUrl = user.photoURL;
       }
     });
   }

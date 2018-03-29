@@ -1,34 +1,34 @@
-.toolbar {
-  display: flex;
-}
-
-.title:focus {
-  outline: none;
-}
-
-.title {
+.flexing {
   flex: 1;
 }
-.title:hover {
-  cursor: pointer
+
+.loginButton {
+  width: 3.5rem;
+  height: 100%;
+}
+.user-profile-image {
+  border-radius: 100%;
+  display:inline-block;
+  vertical-align:middle;
+  max-width:100%;
+  object-fit: contain;
 }
 
-.icon-toolbar {
+.toolbar-button {
   background-color: inherit;
 }
 
-.icon-toolbar:visited {
+.toolbar-button:visited {
   text-decoration: inherit;
   color: inherit;
   cursor: pointer;
 }
 
-.icon-toolbar:hover {
-  background-color: #4f5453;
+.toolbar-button:hover {
   cursor: pointer;
 }
 
-.icon-toolbar:link {
+.toolbar-button:link {
   text-decoration: inherit;
   color: inherit;
   cursor: pointer;
