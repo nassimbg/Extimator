@@ -1,7 +1,7 @@
 import { HttpModule } from '@angular/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Card } from '../card/card';
-import { CardsService } from '../card-service/cards.service';
+import { Card } from './card';
+import { CardsService } from './card-service/cards.service';
 import { CardsComponent } from './cards.component';
 
 describe('CardsComponent', () => {

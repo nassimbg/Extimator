@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core/';
 import { Vote } from '../vote-service/vote';
-import { CardsService } from '../card-service/cards.service';
+import { CardsService } from '../cards/card-service/cards.service';
 import {UserManager} from "../UserManagement/UserManager.service";
 
 @Component({

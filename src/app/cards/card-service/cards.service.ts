@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { Card } from '../card/card';
+import { Card } from '../card';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';

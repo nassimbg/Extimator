@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { AuthService } from '../authentication/service/Auth.service';
-import { CardsService } from '../card-service/cards.service';
+import { CardsService } from './card-service/cards.service';
 import { VoteService } from '../vote-service/vote.service';
-import { Card } from '../card/card';
+import { Card } from './card';
 import { Vote } from '../vote-service/vote';
 
 @Component({

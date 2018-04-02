@@ -1,6 +1,6 @@
 import {
   CardsService
-} from './card-service/cards.service';
+} from './cards/card-service/cards.service';
 import {
   CardsComponent
 } from './cards/cards.component';

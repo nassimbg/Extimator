@@ -8,7 +8,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
-import { CardsService } from './card-service/cards.service';
+import { CardsService } from './cards/card-service/cards.service';
 import { CardsComponent } from './cards/cards.component';
 import { MainComponent } from './main/main.component';
 import { MaterialModule } from './material/material.module';
