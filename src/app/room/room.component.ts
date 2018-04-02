@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 import "rxjs/add/operator/mergeMap";
 import {RoomService} from "./room-service/room.service";
 import {AuthService} from "../authentication/service/Auth.service";
+import {VoteService} from "../vote-service/vote.service";
 
 @Component({
   selector: 'app-room',
@@ -14,7 +15,7 @@ export class RoomComponent implements OnInit {
   public votingEnabled: boolean;
   private roomId: string;
 
-  constructor( private route: ActivatedRoute, private roomService: RoomService, private auth: AuthService) {
+  constructor( private route: ActivatedRoute, private roomService: RoomService, private auth: AuthService, private votingService: VoteService) {
   }
 
   public ngOnInit() {
@@ -25,12 +26,14 @@ export class RoomComponent implements OnInit {
         this.roomId = id;
       });
 
-
-    this.votingButton = 'start voting';
+    this.votingService.getVotingStatues(this.roomId)
+      .subscribe(votingEnabled => {
+        this.votingEnabled = votingEnabled;
+        this.votingButton = votingEnabled ? 'stop voting' : 'start voting';
+      });
   }
 
   public votingEnabler() {
-    this.votingButton = this.votingEnabled ? 'start voting' : 'stop voting';
-    this.votingEnabled = !this.votingEnabled;
+    this.votingService.setVotingStatues(this.roomId, !this.votingEnabled);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase, snapshotChanges} from "angularfire2/database";
-import {AngularFireList, SnapshotAction} from "angularfire2/database/interfaces";
+import {AngularFireDatabase} from "angularfire2/database";
+import {AngularFireList} from "angularfire2/database/interfaces";
 import {Room} from "../room";
 import {Observable} from "rxjs/Observable";
 
@@ -17,12 +17,6 @@ export class RoomService {
 
   push(room: Room): string {
     return this.angularFireRooms.push(room).key;
-  }
-
-  findRoomName(roomId: string): Observable<string> {
-    return this.af.object<Room>(RoomService.roomsPath + roomId)
-      .valueChanges()
-      .map(room => room.name);
   }
 
   addParticipant(roomId: string, userId: string) {
