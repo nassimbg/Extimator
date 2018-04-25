@@ -4,8 +4,7 @@ import { Story } from "app/story-service/story";
 
 @Component({
   selector: 'app-room-stories',
-  templateUrl: './room-stories.component.html',
-  styleUrls: ['./room-stories.component.css']
+  templateUrl: './room-stories.component.html'
 })
 export class RoomStoriesComponent implements OnInit {
 
