@@ -23,6 +23,8 @@ import {UserManager} from "./UserManagement/UserManager.service";
 import { CreateRoomComponent } from './room/create-room/create-room.component';
 import {RoomService} from "./room/room-service/room.service";
 import { PickRoomComponent } from './room/pick-room/pick-room.component';
+import { RoomStoriesComponent } from './room-stories/room-stories.component';
+import { StoryService } from "app/story-service/story.service";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
@@ -47,6 +49,7 @@ export const firebaseConfig = {
     ToolbarComponent,
     CreateRoomComponent,
     PickRoomComponent,
+    RoomStoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,6 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
   ],
-  providers: [CardsService, VoteService, AuthService, UserManager, RoomService],
+  providers: [CardsService, VoteService, AuthService, UserManager, RoomService, StoryService],
 })
 export class AppModule {}

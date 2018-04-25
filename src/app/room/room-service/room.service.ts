@@ -25,7 +25,7 @@ export class RoomService {
   }
 
   getAllRooms(): Observable<any[]> {
-    return this.af.list(RoomService.roomsPath)
+    return this.angularFireRooms
       .snapshotChanges()
       .map(snapshotChange => snapshotChange.map(room => [room.key, room.payload.val().name]))
   }

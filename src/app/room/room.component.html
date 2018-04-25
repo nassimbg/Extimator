@@ -1,4 +1,4 @@
-<mat-sidenav-container class="hello">
+<mat-sidenav-container class="fixed-expand">
   <mat-sidenav opened mode="side" position="end">
     <mat-button-toggle (change)="votingEnabler()">{{votingButton}}</mat-button-toggle>
     <!--this will be uncommented after committing-->
@@ -7,6 +7,11 @@
 
 
     </div>
+  </mat-sidenav>
+
+  <mat-sidenav-container class="fixed-expand">
+  <mat-sidenav opened mode="side" position="start">
+    <app-room-stories [roomId]="roomId"></app-room-stories>
   </mat-sidenav>
 
   <div class="row">
