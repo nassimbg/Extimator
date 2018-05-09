@@ -3,3 +3,7 @@
 </p>
 <input [(ngModel)]="title"/>
 <button type="button" class="btn" (click)="insert(title)" >Add a story</button>
+
+<div>
+    <div *ngFor="let story of stories"> {{story.title}} </div>
+</div>

@@ -17,4 +17,9 @@ export class StoryService {
   push(story: Story, roomId: string): string {
     return this.af.list(StoryService.storiesPath + roomId).push(story).key;
   }
+
+  getStoriesFor(roomId : string){
+    return this.af.list(StoryService.storiesPath + roomId).snapshotChanges()
+          .map(SnapshotActionArray => SnapshotActionArray.map(aStory => new Story(aStory.payload.val().title)));
+  }
 }

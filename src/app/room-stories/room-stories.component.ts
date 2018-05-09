@@ -11,12 +11,16 @@ export class RoomStoriesComponent implements OnInit {
   @Input()
   roomId: string;
 
+  public stories: Story[];
+
   constructor(public storyService:StoryService) { }
 
   ngOnInit() {
+    this.storyService.getStoriesFor(this.roomId).subscribe((p) => (this.stories = p));
   }
 
   insert(title: string){
     this.storyService.push(new Story(title), this.roomId)
   }
+
 }
