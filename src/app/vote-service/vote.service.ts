@@ -30,8 +30,8 @@ export class VoteService {
     return this.af.object( `${VoteService.getRoomVotingURL(roomId)}/${VoteService.VOTING_STATUS_PATH}`);
   }
 
-  public vote(roomId: string, vote: Vote): void {
-    this.af.object(VoteService.getEstimationURL(roomId,VoteService.DEFAULT_STORY_NAME,  vote.userID))
+  public vote(roomId: string, storyId:string, vote: Vote): void {
+    this.af.object(VoteService.getEstimationURL(roomId,storyId,  vote.userID))
       .set(vote.cardId)
       .catch(VoteService.handlePromiseError);
   }
