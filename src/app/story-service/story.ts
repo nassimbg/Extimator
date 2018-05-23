@@ -1,7 +1,9 @@
 export class Story {
+    id: String
     title: String;
 
-  constructor(title: string) {
-      this.title = title;
+  constructor(id: string, title: string) {
+    this.id = id;  
+    this.title = title;
   }
 }

@@ -5,5 +5,5 @@
 <button type="button" class="btn" (click)="insert(title)" >Add a story</button>
 
 <div>
-    <div *ngFor="let story of stories"> {{story.title}} </div>
+    <div *ngFor="let story of stories" (click)="changeCurrentStoryTo(story.id)"> {{story.title}} </div>
 </div>

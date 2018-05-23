@@ -5,6 +5,7 @@ import { VoteService } from '../vote-service/vote.service';
 import { Card } from './card';
 import { Vote } from '../vote-service/vote';
 import { StoryService } from "app/story-service/story.service";
+import { RoomService } from "app/room/room-service/room.service";
 
 @Component({
   selector: 'app-cards',
@@ -25,13 +26,14 @@ export class CardsComponent implements OnInit {
     private cardsService: CardsService,
     private voteService: VoteService,
     private authService: AuthService,
-    private storyService: StoryService
+    private storyService: StoryService,
+     private roomService: RoomService
   ) {}
 
   public ngOnInit() {
     this.getCards();
     this.authService.getUser().subscribe((user) => (this.userId = user.id));
-    this.storyService.currentStory(this.roomId).subscribe(currentStoryId => this.currentStory = currentStoryId);
+    this.roomService.currentStory(this.roomId).subscribe(currentStoryId => this.currentStory = currentStoryId);
   }
 
   public onSelect(card: Card): void {

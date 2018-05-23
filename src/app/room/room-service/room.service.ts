@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase} from "angularfire2/database";
-import {AngularFireList} from "angularfire2/database/interfaces";
-import {Room} from "../room";
-import {Observable} from "rxjs/Observable";
+import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireList } from "angularfire2/database/interfaces";
+import { Room } from "../room";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class RoomService {
@@ -28,5 +28,13 @@ export class RoomService {
     return this.angularFireRooms
       .snapshotChanges()
       .map(snapshotChange => snapshotChange.map(room => [room.key, room.payload.val().name]))
+  }
+
+  currentStory(roomId: string): Observable<any> {
+    return this.af.object(RoomService.roomsPath + roomId + "/currentStory").valueChanges();
+  }
+
+  updateCurrentStoryFor(roomId:string, storyId:string){
+    this.af.list(RoomService.roomsPath + roomId).set("currentStory", storyId)
   }
 }
