@@ -21,5 +21,5 @@ export class StoryService {
   getStoriesFor(roomId: string) {
     return this.af.list(StoryService.storiesPath + roomId).snapshotChanges()
       .map(SnapshotActionArray => SnapshotActionArray.map(aStory => new Story(aStory.key,aStory.payload.val().title)));
-  }  
+  }
 }

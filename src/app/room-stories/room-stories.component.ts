@@ -5,6 +5,7 @@ import { RoomService } from "app/room/room-service/room.service";
 
 @Component({
   selector: 'app-room-stories',
+  styleUrls: ['./room-stories.component.css'],
   templateUrl: './room-stories.component.html'
 })
 export class RoomStoriesComponent implements OnInit {
@@ -13,6 +14,7 @@ export class RoomStoriesComponent implements OnInit {
   roomId: string;
 
   public stories: Story[];
+  public currentStoryId: string;
 
   constructor(public storyService:StoryService, public roomService:RoomService) { }
 
@@ -26,6 +28,11 @@ export class RoomStoriesComponent implements OnInit {
 
   changeCurrentStoryTo(storyId:string){
     this.roomService.updateCurrentStoryFor(this.roomId,storyId);
+    this.toggleFocus(storyId);
+  }
+
+  toggleFocus(storyId: string){
+    this.currentStoryId = storyId;
   }
 
 }

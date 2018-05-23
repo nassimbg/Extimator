@@ -1,9 +1,12 @@
 <p>
   room-stories works!
 </p>
-<input [(ngModel)]="title"/>
-<button type="button" class="btn" (click)="insert(title)" >Add a story</button>
+<input [(ngModel)]="title" />
+<button type="button" class="btn" (click)="insert(title)">Add a story</button>
 
 <div>
-    <div *ngFor="let story of stories" (click)="changeCurrentStoryTo(story.id)"> {{story.title}} </div>
+  <ul class="list-group">
+    <li *ngFor="let story of stories" (click)="changeCurrentStoryTo(story.id)" class="list-group-item" [ngClass]="{'active': currentStoryId == story.id}">
+    {{story.title}} </li>
+    </ul>
 </div>
