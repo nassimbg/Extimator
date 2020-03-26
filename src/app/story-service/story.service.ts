@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireDatabase } from "angularfire2/database";
 import { Story } from "app/story-service/story";
-import { Observable } from "rxjs/Observable";
+import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
+import {map} from "rxjs/operators";
 
 @Injectable()
-export class StoryService {    
+export class StoryService {
   static storiesPath: string = '/STORIES/';
 
   private angularFireStories: AngularFireList<Story>;
@@ -19,7 +19,9 @@ export class StoryService {
   }
 
   getStoriesFor(roomId: string) {
-    return this.af.list(StoryService.storiesPath + roomId).snapshotChanges()
-      .map(SnapshotActionArray => SnapshotActionArray.map(aStory => new Story(aStory.key,aStory.payload.val().title)));
+    return this.af.list(StoryService.storiesPath + roomId)
+      .snapshotChanges()
+      // @ts-ignore
+      .pipe(map(SnapshotActionArray => SnapshotActionArray.map(aStory => new Story(aStory.key,aStory.payload.val().title))));
   }
 }

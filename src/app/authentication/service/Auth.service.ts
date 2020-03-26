@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs/Observable";
 import * as firebase from "firebase/app";
-import {AngularFireAuth} from "angularfire2/auth";
 import {User} from "../../UserManagement/user";
+import {Observable} from "rxjs";
+import { map } from 'rxjs/operators';
+import {AngularFireAuth} from "@angular/fire/auth";
 
 
 @Injectable()
@@ -10,7 +11,7 @@ export class AuthService {
   private user: Observable<User>;
 
   constructor(private af: AngularFireAuth) {
-    this.user = af.authState.map(p => p == null ? null : new User(p.uid, p.displayName, p.photoURL));
+    this.user = af.authState.pipe(map(p => p == null ? null : new User(p.uid, p.displayName, p.photoURL)));
   }
 
   public loginWithGoogle(): Promise<any> {

@@ -1,7 +1,7 @@
-import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
 import {Injectable} from "@angular/core";
 import {User} from "./user";
-import {Observable} from "rxjs/Observable";
+import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class UserManager {

@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularFireAuthModule } from 'angularfire2/auth/';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +12,6 @@ import { MaterialModule } from './material/material.module';
 import { RoomComponent } from './room/room.component';
 import { VoteService } from './vote-service/vote.service';
 import { VotersComponent } from './voters/voters.component';
-import { DisplayedVoteComponent } from './voters/displayedVote.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthService } from './authentication/service/Auth.service';
 import { LogInComponent } from './authentication/LogIn/LogIn.component';
@@ -25,6 +21,10 @@ import {RoomService} from "./room/room-service/room.service";
 import { PickRoomComponent } from './room/pick-room/pick-room.component';
 import { RoomStoriesComponent } from './room-stories/room-stories.component';
 import { StoryService } from "app/story-service/story.service";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import { DisplayVoteComponent } from './voters/display-vote/display-vote.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
@@ -44,18 +44,17 @@ export const firebaseConfig = {
     RoomComponent,
     VotersComponent,
     VotersComponent,
-    DisplayedVoteComponent,
     LogInComponent,
     ToolbarComponent,
     CreateRoomComponent,
     PickRoomComponent,
     RoomStoriesComponent,
+    DisplayVoteComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     MaterialModule,
-    NgbModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     AppRoutingModule,
     AngularFireDatabaseModule,

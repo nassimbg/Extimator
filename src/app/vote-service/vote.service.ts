@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 import { Vote } from './vote';
+import {AngularFireDatabase} from "@angular/fire/database";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class VoteService {
@@ -37,9 +38,9 @@ export class VoteService {
   }
 
   public getVotes(roomId: string): Observable<Vote[]> {
-    return this.af.list(VoteService.getEstimationURL(roomId,VoteService.DEFAULT_STORY_NAME, ''))
+    return this.af.list<number>(VoteService.getEstimationURL(roomId,VoteService.DEFAULT_STORY_NAME, ''))
       .snapshotChanges()
-      .map(SnapshotActionArray => SnapshotActionArray.map(vot => new Vote(vot.payload.key, vot.payload.val())));
+      .pipe(map(SnapshotActionArray => SnapshotActionArray.map(vot => new Vote(vot.payload.key, vot.payload.val()))));
   }
 
   private static handlePromiseError(error: any): Promise<any> {

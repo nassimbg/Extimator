@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from "angularfire2/database";
-import { AngularFireList } from "angularfire2/database/interfaces";
 import { Room } from "../room";
-import { Observable } from "rxjs/Observable";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
 
 @Injectable()
 export class RoomService {
@@ -27,7 +27,7 @@ export class RoomService {
   getAllRooms(): Observable<any[]> {
     return this.angularFireRooms
       .snapshotChanges()
-      .map(snapshotChange => snapshotChange.map(room => [room.key, room.payload.val().name]))
+      .pipe(map(snapshotChange => snapshotChange.map(room => [room.key, room.payload.val().name])))
   }
 
   currentStory(roomId: string): Observable<any> {
