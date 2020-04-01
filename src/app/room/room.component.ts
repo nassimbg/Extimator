@@ -7,7 +7,7 @@ import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-room',
-  styleUrls: ['./room.component.css'],
+  styleUrls: ['./room.component.scss'],
   templateUrl: './room.component.html',
 })
 export class RoomComponent implements OnInit {

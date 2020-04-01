@@ -49,7 +49,7 @@ export const firebaseConfig = {
     CreateRoomComponent,
     PickRoomComponent,
     RoomStoriesComponent,
-    DisplayVoteComponent,
+    DisplayVoteComponent
   ],
   imports: [
     BrowserModule,

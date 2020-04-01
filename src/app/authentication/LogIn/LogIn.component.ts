@@ -5,7 +5,7 @@ import {UserManager} from "../../UserManagement/UserManager.service";
 
 @Component({
   selector: 'log-in',
-  styleUrls: ['./LogIn.component.css'],
+  styleUrls: ['./LogIn.component.scss'],
   templateUrl: './LogIn.component.html',
 })
 export class LogInComponent {

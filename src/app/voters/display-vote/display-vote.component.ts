@@ -6,7 +6,7 @@ import {UserManager} from "../../UserManagement/UserManager.service";
 @Component({
   selector: 'app-display-vote',
   templateUrl: './display-vote.component.html',
-  styleUrls: ['./display-vote.component.css']
+  styleUrls: ['./display-vote.component.scss']
 })
 export class DisplayVoteComponent implements OnInit {
 

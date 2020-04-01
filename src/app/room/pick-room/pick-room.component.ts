@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-pick-room',
   templateUrl: './pick-room.component.html',
-  styleUrls: ['./pick-room.component.css']
+  styleUrls: ['./pick-room.component.scss']
 })
 export class PickRoomComponent implements OnInit {
 

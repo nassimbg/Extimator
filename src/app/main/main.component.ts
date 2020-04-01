@@ -3,7 +3,7 @@ import { AuthService } from '../authentication/service/Auth.service';
 
 @Component({
   selector: 'app-main',
-  styleUrls: ['./main.component.css'],
+  styleUrls: ['./main.component.scss'],
   templateUrl: './main.component.html',
 })
 export class MainComponent implements OnInit {

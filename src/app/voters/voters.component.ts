@@ -4,7 +4,7 @@ import { Vote } from '../vote-service/vote';
 
 @Component({
   selector: 'app-voters',
-  styleUrls: ['./voters.component.css'],
+  styleUrls: ['./voters.component.scss'],
   templateUrl: './voters.component.html',
 })
 export class VotersComponent implements OnInit {
