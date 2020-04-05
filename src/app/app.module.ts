@@ -24,7 +24,7 @@ import { StoryService } from "app/story-service/story.service";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {AngularFireAuthModule} from "@angular/fire/auth";
-import { DisplayVoteComponent } from './voters/display-vote/display-vote.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
@@ -48,8 +48,7 @@ export const firebaseConfig = {
     ToolbarComponent,
     CreateRoomComponent,
     PickRoomComponent,
-    RoomStoriesComponent,
-    DisplayVoteComponent
+    RoomStoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +58,7 @@ export const firebaseConfig = {
     AppRoutingModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    FlexLayoutModule
   ],
   providers: [CardsService, VoteService, AuthService, UserManager, RoomService, StoryService],
 })

@@ -1,11 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../authentication/service/Auth.service';
 import { CardsService } from './card-service/cards.service';
 import { VoteService } from '../vote-service/vote.service';
 import { Card } from './card';
 import { Vote } from '../vote-service/vote';
-import { StoryService } from "app/story-service/story.service";
-import { RoomService } from "app/room/room-service/room.service";
 
 @Component({
   selector: 'app-cards',
@@ -16,35 +14,66 @@ export class CardsComponent implements OnInit {
   public cards: Card[];
   public selectedCard: Card;
   private userId: string;
+  private cardSelected: boolean;
 
   @Input()
   private roomId: string;
 
-  private currentStory: string = "defaultStoryId";
+  @Input()
+  private currentStory: string;
 
   constructor(
     private cardsService: CardsService,
     private voteService: VoteService,
-    private authService: AuthService,
-    private storyService: StoryService,
-     private roomService: RoomService
+    private authService: AuthService
   ) {}
 
   public ngOnInit() {
     this.getCards();
+    this.cardSelected = false;
     this.authService.getUser().subscribe((user) => (this.userId = user.id));
-    this.roomService.currentStory(this.roomId).subscribe(currentStoryId => this.currentStory = currentStoryId);
-  }
-
-  public onSelect(card: Card): void {
-    this.selectedCard = card;
-  }
-
-  public onCheck(): void {
-    this.voteService.vote(this.roomId, this.currentStory, new Vote(this.userId, this.selectedCard.id));
   }
 
   private getCards(): void {
     this.cardsService.getCards().subscribe((cards) => (this.cards = cards));
+  }
+
+  onSelect($event: MouseEvent, selectedCard : Card) {
+    this.cardSelected = !this.cardSelected;
+    let oldSelection = this.selectedCard;
+
+    this.selectedCard = selectedCard;
+
+    if (this.cardSelected && oldSelection !== selectedCard) {
+       this.voteService.vote(this.roomId, this.currentStory , new Vote(this.userId, this.selectedCard.id));
+    }
+  }
+
+  getImage(id: number): string | undefined {
+    let imageURL = this.cardsService.getImageURL(id);
+    if (imageURL) {
+      return `url("${imageURL}")`;
+    }
+  }
+
+  getCardStyle(card: Card) {
+    let image = this.getImage(card.id);
+
+    let style = {};
+
+    if (image) {
+      style['background-image'] = image;
+      return style;
+    }
+  }
+
+  getStyleMetadata(card: Card) {
+    let cardStyle = this.getCardStyle(card);
+
+    let metadata = {};
+    metadata['isEmpty'] = !!cardStyle;
+    metadata['styles'] = cardStyle;
+
+    return metadata;
   }
 }

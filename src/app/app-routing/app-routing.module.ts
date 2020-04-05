@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'room/:id', component: RoomComponent },
   { path: 'logIn', component: LogInComponent },
   { path: 'create-room', component: CreateRoomComponent },
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({

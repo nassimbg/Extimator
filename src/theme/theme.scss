@@ -1,0 +1,63 @@
+@import "./pink-bluegrey";
+
+$theme: $pinkBlueGreyDarkTheme;
+
+
+// Copy the palettes from your selected theme (usually theme.scss).
+$app-primary: map-get($theme, primary);
+$app-accent: map-get($theme, accent);
+$app-warn: map-get($theme, warn);
+$app-background: map-get($theme, background);
+
+// Create your Sass color vars (will be available in all the project)
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);
+
+// helper methods
+@function primary($hue: default) {
+  @return mat-color($app-primary, $hue);
+}
+
+@function accent($hue) {
+  @return mat-color($app-accent, $hue);
+}
+
+@function warn($hue) {
+  @return mat-color($app-warn, $hue);
+}
+
+@function background($percentage: 0%) {
+  @if map-get($theme, is-dark) {
+    @return lighten(map-get($app-background, background), $percentage);
+  } @else {
+    @return darken(map-get($app-background, background), $percentage);
+  }
+}
+
+//mixins
+@mixin background-color-theme($theme) {
+  .background-color-v10 {
+    background-color: background(10%);
+  }
+
+  .primary-background-color {
+    background-color: primary();
+  }
+}
+
+@mixin mat-button-toggle-theme($theme) {
+  $accent: map-get($theme, accent);
+  .mat-button-toggle {
+    background-color: mat-color($accent);
+  }
+}
+
+@mixin theme($theme) {
+  @include background-color-theme($theme);
+  @include mat-button-toggle-theme($theme);
+}
+
+//include
+@include theme($theme);
+@include angular-material-theme($theme);

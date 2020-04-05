@@ -4,6 +4,7 @@ import {RoomService} from "./room-service/room.service";
 import {AuthService} from "../authentication/service/Auth.service";
 import {VoteService} from "../vote-service/vote.service";
 import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-room',
@@ -13,7 +14,9 @@ import {map} from "rxjs/operators";
 export class RoomComponent implements OnInit {
   public votingButton: string;
   public votingEnabled: boolean;
+  public isExpanded: boolean;
   roomId: string;
+  currentStory: string;
 
   constructor( private route: ActivatedRoute, private roomService: RoomService, private auth: AuthService, private votingService: VoteService) {
   }
@@ -31,6 +34,8 @@ export class RoomComponent implements OnInit {
         this.votingEnabled = votingEnabled;
         this.votingButton = votingEnabled ? 'stop voting' : 'start voting';
       });
+
+    this.roomService.currentStory(this.roomId).subscribe(currentStory => this.currentStory = currentStory);
   }
 
   public votingEnabler() {

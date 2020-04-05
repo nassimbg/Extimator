@@ -7,7 +7,6 @@ import {map} from "rxjs/operators";
 @Injectable()
 export class VoteService {
 
-  private static DEFAULT_STORY_NAME = "story1";
   private static VOTES_PATH = "VOTES";
   private static STORIES_PATH = "STORIES";
   private static ESTIMATIONS_PATH = "ESTIMATIONS";
@@ -37,8 +36,8 @@ export class VoteService {
       .catch(VoteService.handlePromiseError);
   }
 
-  public getVotes(roomId: string): Observable<Vote[]> {
-    return this.af.list<number>(VoteService.getEstimationURL(roomId,VoteService.DEFAULT_STORY_NAME, ''))
+  public getVotes(roomId: string, currentStory: string): Observable<Vote[]> {
+    return this.af.list<number>(VoteService.getEstimationURL(roomId, currentStory, ''))
       .snapshotChanges()
       .pipe(map(SnapshotActionArray => SnapshotActionArray.map(vot => new Vote(vot.payload.key, vot.payload.val()))));
   }

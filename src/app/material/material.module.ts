@@ -8,6 +8,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatListModule} from "@angular/material/list";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   exports: [
@@ -19,7 +21,9 @@ import {MatChipsModule} from "@angular/material/chips";
     MatCardModule,
     MatSidenavModule,
     MatButtonToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    MatListModule,
+    MatTooltipModule
   ],
   imports: [
     BrowserAnimationsModule,
@@ -30,7 +34,9 @@ import {MatChipsModule} from "@angular/material/chips";
     MatCardModule,
     MatSidenavModule,
     MatButtonToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    MatListModule,
+    MatTooltipModule
   ],
 })
 export class MaterialModule {}

@@ -1,19 +1,11 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <mat-card class="col-lg-3 col-mat-3 col-sm-3 col-xs-1" *ngFor="let card of cards; let i = index" (click)="onSelect(card)">
-      <mat-card-header class="justify-content-center">{{card.title}}</mat-card-header>
-    </mat-card>
-  </div>
-
-
-  <div class="row justify-content-center mt-5">
-    <mat-card *ngIf="selectedCard" class="col-lg-3 col-mat-4 col-sm-6 col-xs-12">
-      <mat-card-header class="justify-content-center">
-        <div>{{selectedCard.title}}</div>
-      </mat-card-header>
-      <mat-card-actions>
-        <button mat-button class="mx-auto d-flex p-2" (click)="onCheck()"><mat-icon>check</mat-icon></button>
-      </mat-card-actions>
-    </mat-card>
+<!--resources from: https://codepen.io/bashennekam/pen/xqbvov-->
+<div  id="deck" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px grid">
+  <div class="vcard" *ngFor="let card of cards; let i = index;" fxFlex="15" fxFlex.xs="25">
+    <div class="inner" (click)="onSelect($event,card)" [class.turn]="cardSelected && selectedCard !== card">
+      <div fxLayout="row" fxLayoutAlign="center center" class="front primary-background-color" *ngIf="getStyleMetadata(card) as styleMetadata" [style]="$any(styleMetadata).styles">
+        <div *ngIf="!$any(styleMetadata).isEmpty" class="simpleCard">{{card.title}}</div>
+      </div>
+      <div class="back" [style.background-image] = "getImage(-1)"></div>
+    </div>
   </div>
 </div>

@@ -1,5 +1,9 @@
-<div class="container">
-  <div class="row justify-content-center mt-5">
-    <app-display-vote *ngFor="let vote of votes" [votey] = "vote"> </app-display-vote >
-  </div>
-</div>
+<mat-list>
+  <div mat-subheader>Users</div>
+  <mat-list-item fxLayoutAlign.sm="center" fxLayoutAlign.xs="center" *ngFor="let vote of votes">
+    <div matListAvatar matTooltip={{vote.userID}} [matTooltipPosition]="'left'"
+         [style.backgroundImage]="'url(' + vote.photo + ')'" class="avatar"></div>
+    <div matLine *ngIf="showMore"><span>{{vote.userID}}</span></div>
+    <div matLine *ngIf="showMore"><span>{{vote.cardTitle}}</span></div>
+  </mat-list-item>
+</mat-list>
