@@ -1,4 +1,4 @@
-<!--resources from: https://codepen.io/bashennekam/pen/xqbvov-->
+<!--resources from: https://codepen.io/bashennekam/pen/xqbvov -->
 <div  id="deck" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px grid">
   <div class="vcard" *ngFor="let card of cards; let i = index;" fxFlex="15" fxFlex.xs="25">
     <div class="inner" (click)="onSelect($event,card)" [class.turn]="cardSelected && selectedCard !== card">

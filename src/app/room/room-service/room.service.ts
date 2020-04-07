@@ -20,8 +20,16 @@ export class RoomService {
   }
 
   addParticipant(roomId: string, userId: string) {
-    this.af.list(RoomService.roomsPath + roomId + RoomService.participant)
+    this.getParticipantsList(roomId)
       .set(userId, userId);
+  }
+
+  private getParticipantsList(roomId: string): AngularFireList<string> {
+    return this.af.list(RoomService.roomsPath + roomId + RoomService.participant);
+  }
+
+  getParticipants(roomId: string): Observable<string[]> {
+    return this.getParticipantsList(roomId).valueChanges();
   }
 
   getAllRooms(): Observable<any[]> {

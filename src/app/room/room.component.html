@@ -1,32 +1,31 @@
 <mat-sidenav-container class="fixed-expand" autosize>
-  <mat-sidenav opened mode="side" position="end">
-    <button mat-mini-fab (click)="isExpanded = !isExpanded" color="accent" style="margin: 10px;">
-      <mat-icon aria-label="Menu">menu</mat-icon>
-    </button>
+  <mat-sidenav #sidenav opened mode="side" position="start" class="sideNav">
+
+    <div class="button" fxLayout="row" fxLayoutAlign="{{isExpanded ? 'start' : 'center'}}">
+      <!--fxFlexOffset is used here to keep the button in place upon expanding the sidNav-->
+      <button mat-mini-fab (click)="expandNav()" color="accent" fxFlexOffset="{{isExpanded ? 6 : 0}}">
+        <mat-icon aria-label="Menu">menu</mat-icon>
+      </button>
+    </div>
 
     <app-voters [roomId]="roomId" [currentStory]="currentStory" [showMore]=isExpanded></app-voters>
   </mat-sidenav>
 
-  <!--  <mat-sidenav-container class="fixed-expand">-->
-  <!--    <mat-sidenav opened mode="side" position="start">-->
-  <!--      <app-room-stories [roomId]="roomId"></app-room-stories>-->
-  <!--    </mat-sidenav>-->
-
   <mat-sidenav-content fxLayout="row">
-    <div fxFlexFill fxLayout="column" class="background-color-v10 votingContainer border-left border-right">
+    <div fxFlexFill fxLayout="column" class="votingContainer">
 
-      <div>
-        <div *ngIf="votingEnabled; else votingDisabled">
+      <div id="mainVotingContainer">
+        <div *ngIf="votingEnabled;">
           <app-cards [roomId]="roomId" [currentStory]="currentStory"></app-cards>
         </div>
 
-        <ng-template #votingDisabled>
-
-        </ng-template>
+        <div *ngIf="votingEnabled === false" fxFlexFill>
+          <app-voting-result [roomId]="roomId" [currentStory]="currentStory"></app-voting-result>
+        </div>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="center">
-        <mat-button-toggle color="accent" (change)="votingEnabler()">{{votingButton}}</mat-button-toggle>
+        <mat-button-toggle (change)="votingEnabler()">{{votingButton}}</mat-button-toggle>
       </div>
     </div>
   </mat-sidenav-content>

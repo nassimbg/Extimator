@@ -1,9 +1,12 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { VoteService } from '../vote-service/vote.service';
-import { Vote } from '../vote-service/vote';
 import {CardsService} from "../cards/card-service/cards.service";
 import {UserManager} from "../UserManagement/UserManager.service";
-import {map} from "rxjs/operators";
+import {delay, map, mergeMap, tap} from "rxjs/operators";
+import {RoomService} from "../room/room-service/room.service";
+import {combineLatest, of} from "rxjs";
+import {User} from "../UserManagement/user";
+import {fromArray} from "rxjs/internal/observable/fromArray";
 
 @Component({
   selector: 'app-voters',
@@ -11,7 +14,8 @@ import {map} from "rxjs/operators";
   templateUrl: './voters.component.html',
 })
 export class VotersComponent implements OnInit, OnChanges {
-  public votes: DisplayedVote[];
+
+  public participants: Map<string, DisplayedVoter>;
 
   @Input()
   private roomId: string;
@@ -22,42 +26,117 @@ export class VotersComponent implements OnInit, OnChanges {
   @Input()
   private currentStory: string;
 
-  constructor(private voteService: VoteService, private cardsService: CardsService, private userService: UserManager) {}
+  constructor(private voteService: VoteService, private cardsService: CardsService, private userService: UserManager, private roomService: RoomService) {
+    this.participants = new Map();
+  }
 
   public ngOnInit() {
+    this.roomService.getParticipants(this.roomId)
+      .pipe(
+        mergeMap(participants => combineLatest(participants.map(participantId => this.userService.findUser(participantId)))),
+        map(participants => fromArray(participants)),
+        mergeMap(obv => obv)
+      ).subscribe(participant => this.addUserToParticipants(participant));
+  }
+
+  private addUserToParticipants(user) {
+    let displayedVoter = this.participants.get(user.id);
+
+    if (displayedVoter) {
+      displayedVoter.user = user;
+    } else {
+      this.participants.set(user.id, new DisplayedVoter(user));
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     let currentStory = changes.currentStory;
 
     if (currentStory?.currentValue !== currentStory?.previousValue) {
+
       this.voteService.getVotes(this.roomId, currentStory.currentValue)
         .pipe(
-          map(votes => this.getDisplayedVotes(votes))
-        ).subscribe((p) => (this.votes = p));
+          tap(() => this.participants?.forEach(voter => voter.resetVote())),
+          map(votes => fromArray(votes)),
+          mergeMap(obv => obv)
+        ).subscribe((vote) => this.addVoterToParticipants(vote));
     }
   }
 
-  private getDisplayedVotes(votes) {
-    return votes.map(vote => {
-      let displayedVote = new DisplayedVote();
-      this.userService.findUser(vote.userID)
-        .subscribe(user => {
-          displayedVote.userID = user.name;
-          displayedVote.photo = user.photoURL
-        });
+  private addVoterToParticipants(vote) {
+    let displayedVoter = this.participants.get(vote.userID);
 
-      this.cardsService
-        .getCardValueFor(vote.cardId)
-        .subscribe(cardTitle => (displayedVote.cardTitle = cardTitle));
+    if (!displayedVoter) {
+      displayedVoter = new DisplayedVoter();
+      this.participants.set(vote.userID, displayedVoter);
+    }
 
-      return displayedVote;
-    });
+    this.cardsService
+      .getCardValueFor(vote.cardId)
+      .subscribe(cardTitle => displayedVoter.setVote(true, cardTitle));
+  }
+
+  getVoterPhoto(voter: DisplayedVoter) {
+    return 'url(' + voter.photo + ')'
+  }
+
+  getVotingStatues(voter: DisplayedVoter) {
+    return voter.voted ? '#2e9d4b' :  '#ff9c43'
   }
 }
 
-class DisplayedVote {
-  public userID: string;
-  public cardTitle: string;
-  public photo: string;
+class DisplayedVoter {
+
+  private _user: User;
+  _voted: boolean = false;
+  _cardTitle: string;
+
+  constructor(user?: User) {
+    this._user = user;
+  }
+
+  setVote(voted: boolean, cardTitle?: string ) {
+    this._voted = voted;
+
+    if (cardTitle) {
+      this._cardTitle = cardTitle;
+    }
+  }
+
+  get userID() : string {
+    return this._user?.id;
+  }
+
+  get userName(): string {
+    return this._user?.name;
+  }
+
+  public get photo(): string {
+    return this._user?.photoURL;
+  }
+
+  get voted(): boolean {
+    return this._voted;
+  }
+
+  get cardTitle(): string {
+    return this._cardTitle;
+  }
+
+  set voted(value: boolean) {
+    this._voted = value;
+  }
+
+  set cardTitle(value: string) {
+    this._cardTitle = value;
+  }
+
+  set user(value: User) {
+    this._user = value;
+  }
+
+  resetVote() {
+    this._voted = false;
+    this._cardTitle = undefined;
+  }
 }

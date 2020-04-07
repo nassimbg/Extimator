@@ -6,10 +6,20 @@
   min-width: 100%;
 }
 
+.button {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .votingContainer {
   min-width: 0 !important;
 }
 
+/*.sideNav {
+  max-width: 15%;
+}*/
+
+button:focus {outline:0;}
 
 @media only screen and (min-width: 960px) {
   .votingContainer {

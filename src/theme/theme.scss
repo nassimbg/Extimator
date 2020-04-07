@@ -44,6 +44,14 @@ $warn: mat-color($app-warn);
   .primary-background-color {
     background-color: primary();
   }
+
+  .mat-drawer-backdrop.mat-drawer-shown {
+       $opacity: 0.6;
+       $background: map-get($theme, background);
+       $backdrop-color: mat-color($background, card, $opacity);
+
+       background-color: rgba(5, 1, 1, 0.73) !important;
+     }
 }
 
 @mixin mat-button-toggle-theme($theme) {

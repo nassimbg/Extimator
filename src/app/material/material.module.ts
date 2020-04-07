@@ -5,11 +5,12 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
-import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatListModule} from "@angular/material/list";
 import {MatTooltipModule} from "@angular/material/tooltip";
+
 
 @NgModule({
   exports: [
@@ -23,7 +24,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatButtonToggleModule,
     MatChipsModule,
     MatListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSidenav
   ],
   imports: [
     BrowserAnimationsModule,

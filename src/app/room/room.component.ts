@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {RoomService} from "./room-service/room.service";
 import {AuthService} from "../authentication/service/Auth.service";
 import {VoteService} from "../vote-service/vote.service";
 import {map} from "rxjs/operators";
-import {Observable} from "rxjs";
+import {MatSidenav} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-room',
@@ -12,6 +12,9 @@ import {Observable} from "rxjs";
   templateUrl: './room.component.html',
 })
 export class RoomComponent implements OnInit {
+
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
   public votingButton: string;
   public votingEnabled: boolean;
   public isExpanded: boolean;
@@ -40,5 +43,23 @@ export class RoomComponent implements OnInit {
 
   public votingEnabler() {
     this.votingService.setVotingStatues(this.roomId, !this.votingEnabled);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth < Utils.getMinLargeScreenSize()) {
+      this.isExpanded = false;
+    }
+  }
+
+  expandNav() {
+    this.isExpanded = !this.isExpanded;
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+    if (width < 960 && this.isExpanded) {
+      this.sidenav.mode = "over";
+    } else {
+      this.sidenav.mode = "side";
+    }
   }
 }
