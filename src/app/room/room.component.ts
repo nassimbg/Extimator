@@ -5,6 +5,7 @@ import {AuthService} from "../authentication/service/Auth.service";
 import {VoteService} from "../vote-service/vote.service";
 import {map} from "rxjs/operators";
 import {MatSidenav} from "@angular/material/sidenav";
+import {Utils} from "../utils/utils";
 
 @Component({
   selector: 'app-room',
@@ -25,6 +26,7 @@ export class RoomComponent implements OnInit {
   }
 
   public ngOnInit() {
+
     this.route.paramMap
       .pipe(map((params: ParamMap) =>  params.get('id')))
       .subscribe(id => {
@@ -54,9 +56,8 @@ export class RoomComponent implements OnInit {
 
   expandNav() {
     this.isExpanded = !this.isExpanded;
-    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-    if (width < 960 && this.isExpanded) {
+    if (!Utils.isLargeScreen() && this.isExpanded) {
       this.sidenav.mode = "over";
     } else {
       this.sidenav.mode = "side";

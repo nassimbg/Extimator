@@ -19,11 +19,11 @@ $warn: mat-color($app-warn);
   @return mat-color($app-primary, $hue);
 }
 
-@function accent($hue) {
+@function accent($hue: default) {
   @return mat-color($app-accent, $hue);
 }
 
-@function warn($hue) {
+@function warn($hue: default) {
   @return mat-color($app-warn, $hue);
 }
 
@@ -45,19 +45,31 @@ $warn: mat-color($app-warn);
     background-color: primary();
   }
 
-  .mat-drawer-backdrop.mat-drawer-shown {
-       $opacity: 0.6;
-       $background: map-get($theme, background);
-       $backdrop-color: mat-color($background, card, $opacity);
+  :root {
+    --backgroundColor: #{background()};
+  }
+}
 
-       background-color: rgba(5, 1, 1, 0.73) !important;
-     }
+@mixin mat-sidnav-theme($theme) {
+  .mat-drawer-backdrop.mat-drawer-shown {
+    $opacity: 0.6;
+    $background: map-get($theme, background);
+    $backdrop-color: mat-color($background, card, $opacity);
+
+    background-color: rgba(5, 1, 1, 0.73) !important;
+  }
 }
 
 @mixin mat-button-toggle-theme($theme) {
-  $accent: map-get($theme, accent);
+
   .mat-button-toggle {
-    background-color: mat-color($accent);
+    background-color: primary();
+    color: mat-color($app-primary, default-contrast);
+  }
+
+  .mat-button-toggle-checked {
+    background-color: accent();
+    color: mat-color($app-accent, default-contrast);
   }
 }
 

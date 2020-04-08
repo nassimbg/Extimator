@@ -1,6 +1,6 @@
 <mat-list class="listStyle">
   <mat-list-item fxLayoutAlign="{{showMore ? 'right' : 'center'}}" *ngFor="let vote of participants | keyvalue">
-    <div matListAvatar matTooltip={{vote.value.userName}} [matTooltipPosition]="'left'"
+    <div matListAvatar matTooltip={{vote.value.userName}} [matTooltipPosition]="'right'"
          [style.backgroundImage]="getVoterPhoto(vote.value)" [style.border-color]="getVotingStatues(vote.value)" class="avatar"></div>
     <div matLine *ngIf="showMore"><span>{{vote.value.userName}}</span></div>
     <div matLine *ngIf="showMore"><span>{{vote.value._cardTitle}}</span></div>

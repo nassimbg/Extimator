@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +24,8 @@ import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { VotingResultComponent } from './room/room/voting-result/voting-result.component';
+import {NgxEchartsModule} from "ngx-echarts";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
@@ -48,7 +49,8 @@ export const firebaseConfig = {
     ToolbarComponent,
     CreateRoomComponent,
     PickRoomComponent,
-    RoomStoriesComponent
+    RoomStoriesComponent,
+    VotingResultComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ export const firebaseConfig = {
     AppRoutingModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxEchartsModule
   ],
   providers: [CardsService, VoteService, AuthService, UserManager, RoomService, StoryService],
 })
