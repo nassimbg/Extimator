@@ -44,7 +44,12 @@ export class RoomComponent implements OnInit {
   }
 
   public votingEnabler() {
-    this.votingService.setVotingStatues(this.roomId, !this.votingEnabled);
+    let tempVotingEnabled = !this.votingEnabled;
+
+    if (tempVotingEnabled) {
+      this.votingService.resetVotes(this.roomId, this.currentStory);
+    }
+    this.votingService.setVotingStatues(this.roomId, tempVotingEnabled);
   }
 
   @HostListener('window:resize', ['$event'])

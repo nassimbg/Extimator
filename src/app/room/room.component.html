@@ -14,7 +14,7 @@
   <mat-sidenav-content fxLayout="row">
     <div fxFlexFill fxLayout="column" class="votingContainer">
 
-      <div id="mainVotingContainer">
+      <div id="mainVotingContainer" fxFlex="50">
         <div *ngIf="votingEnabled;">
           <app-cards [roomId]="roomId" [currentStory]="currentStory"></app-cards>
         </div>

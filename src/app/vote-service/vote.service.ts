@@ -3,6 +3,7 @@ import { Vote } from './vote';
 import {AngularFireDatabase} from "@angular/fire/database";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {strict} from "assert";
 
 @Injectable()
 export class VoteService {
@@ -26,10 +27,6 @@ export class VoteService {
       .valueChanges();
   }
 
-  private getVotingStatusObserver(roomId: string) {
-    return this.af.object( `${VoteService.getRoomVotingURL(roomId)}/${VoteService.VOTING_STATUS_PATH}`);
-  }
-
   public vote(roomId: string, storyId:string, vote: Vote): void {
     this.af.object(VoteService.getEstimationURL(roomId,storyId,  vote.userID))
       .set(vote.cardId)
@@ -42,6 +39,16 @@ export class VoteService {
       .pipe(map(SnapshotActionArray => SnapshotActionArray.map(vot => new Vote(vot.payload.key, vot.payload.val()))));
   }
 
+  resetVotes(roomId: string, currentStory: string) {
+    this.af.object(VoteService.getStoryInRoomURL(roomId, currentStory))
+      .remove()
+      .catch(VoteService.handlePromiseError);
+  }
+
+  private getVotingStatusObserver(roomId: string) {
+    return this.af.object( `${VoteService.getRoomVotingURL(roomId)}/${VoteService.VOTING_STATUS_PATH}`);
+  }
+
   private static handlePromiseError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }
@@ -50,7 +57,11 @@ export class VoteService {
     return `/${VoteService.ESTIMATIONS_PATH}/${roomId}`;
   }
 
+  private static getStoryInRoomURL(roomId: string, storyId: string) {
+    return `${VoteService.getRoomVotingURL(roomId)}/${VoteService.STORIES_PATH}/${storyId}/${VoteService.VOTES_PATH}/`;
+  }
+
   private static getEstimationURL(roomId: string, storyId: string, userId: string): string {
-    return `${VoteService.getRoomVotingURL(roomId)}/${VoteService.STORIES_PATH}/${storyId}/${VoteService.VOTES_PATH}/${userId}`;
+    return `${VoteService.getStoryInRoomURL(roomId, storyId)}${userId}`;
   }
 }

@@ -19,12 +19,11 @@ export class CreateRoomComponent implements OnInit {
   }
 
   newRoom() {
-    this.room = new Room(undefined);
+    this.room = new Room();
   }
 
   onSubmit() {
     let roomId = this.roomService.push(this.room);
     this.router.navigate(['/room', roomId]);
   }
-
 }
