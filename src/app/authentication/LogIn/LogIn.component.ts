@@ -1,4 +1,4 @@
-import {Router} from '@angular/router';
+import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {Component} from '@angular/core';
 import {AuthService} from '../service/Auth.service';
 import {UserManager} from "../../UserManagement/UserManager.service";
@@ -11,14 +11,13 @@ import {UserManager} from "../../UserManagement/UserManager.service";
 export class LogInComponent {
   public error: Error;
 
-  constructor(private authService: AuthService, private router: Router,private userManagerService: UserManager) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   public login() {
     this.authService
       .loginWithGoogle()
-      .then((userData) => this.authService.getUser().subscribe(user => this.userManagerService.registerUser(user)))
-      .then((data) => this.router.navigate(['']))
+      .then((data) => this.router.navigate([this.authService.redirectUrl]))
       .catch((error) => (this.error = error));
   }
 }

@@ -8,6 +8,7 @@ export class UserManager {
   static userPath = '/USERS/';
   private itemsRef: AngularFireList<User>;
 
+  //todo this could be removed and maybe use firebase auth service rather than saving in firebase
   constructor(private af: AngularFireDatabase) {
     this.itemsRef = this.af.list(UserManager.userPath);
   }

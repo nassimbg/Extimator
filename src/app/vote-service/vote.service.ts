@@ -4,6 +4,7 @@ import {AngularFireDatabase} from "@angular/fire/database";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {strict} from "assert";
+import {Utils} from "../utils/utils";
 
 @Injectable()
 export class VoteService {
@@ -19,7 +20,7 @@ export class VoteService {
   public setVotingStatues(roomId: string, votingEnabled: boolean) {
     this.getVotingStatusObserver(roomId)
       .set(votingEnabled)
-      .catch(VoteService.handlePromiseError);
+      .catch(Utils.handlePromiseError);
   }
 
   public getVotingStatues(roomId: string): Observable<any> {
@@ -30,7 +31,7 @@ export class VoteService {
   public vote(roomId: string, storyId:string, vote: Vote): void {
     this.af.object(VoteService.getEstimationURL(roomId,storyId,  vote.userID))
       .set(vote.cardId)
-      .catch(VoteService.handlePromiseError);
+      .catch(Utils.handlePromiseError);
   }
 
   public getVotes(roomId: string, currentStory: string): Observable<Vote[]> {
@@ -42,15 +43,11 @@ export class VoteService {
   resetVotes(roomId: string, currentStory: string) {
     this.af.object(VoteService.getStoryInRoomURL(roomId, currentStory))
       .remove()
-      .catch(VoteService.handlePromiseError);
+      .catch(Utils.handlePromiseError);
   }
 
   private getVotingStatusObserver(roomId: string) {
     return this.af.object( `${VoteService.getRoomVotingURL(roomId)}/${VoteService.VOTING_STATUS_PATH}`);
-  }
-
-  private static handlePromiseError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
   }
 
   private static getRoomVotingURL(roomId: string) {
