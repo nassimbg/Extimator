@@ -68,7 +68,7 @@ export class VotingResultComponent implements OnInit, OnChanges {
     let borderColor = getComputedStyle(this.chart.nativeElement)
       .getPropertyValue("--backgroundColor");
 
-    let fontSize = Utils.isLargeScreen( )? '20' : '12';
+    let fontSize = Utils.isAtLeastMediumScreen( )? '20' : '12';
 
     return  {
       tooltip: {

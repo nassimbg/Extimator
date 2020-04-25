@@ -54,7 +54,7 @@ export class RoomComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (event.target.innerWidth < Utils.getMinLargeScreenSize()) {
+    if (event.target.innerWidth < Utils.getMinMediumScreenSize()) {
       this.isExpanded = false;
     }
   }
@@ -62,7 +62,7 @@ export class RoomComponent implements OnInit {
   expandNav() {
     this.isExpanded = !this.isExpanded;
 
-    if (!Utils.isLargeScreen() && this.isExpanded) {
+    if (!Utils.isAtLeastMediumScreen() && this.isExpanded) {
       this.sidenav.mode = "over";
     } else {
       this.sidenav.mode = "side";

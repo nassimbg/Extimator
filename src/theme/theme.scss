@@ -38,7 +38,11 @@ $warn: mat-color($app-warn);
 //mixins
 @mixin background-color-theme($theme) {
   .background-color-v10 {
-    background-color: background(10%);
+    background-color: background(10%) !important;
+  }
+
+  .background-color-v0 {
+    background-color: background(0%);
   }
 
   .primary-background-color {
@@ -47,6 +51,16 @@ $warn: mat-color($app-warn);
 
   :root {
     --backgroundColor: #{background()};
+  }
+}
+
+
+@mixin foreground-color-theme($theme) {
+  $foreground: map-get($theme, foreground);
+
+  .foreground-color-theme {
+    color: mat-color($foreground, text) !important;
+
   }
 }
 
@@ -73,9 +87,18 @@ $warn: mat-color($app-warn);
   }
 }
 
+@mixin mat-button-theme($theme) {
+
+  .mat-button.mat-button-hover-theme:hover {
+    background-color: background(30%) !important;
+  }
+}
+
 @mixin theme($theme) {
   @include background-color-theme($theme);
+  @include foreground-color-theme($theme);
   @include mat-button-toggle-theme($theme);
+  @include mat-button-theme($theme);
 }
 
 //include

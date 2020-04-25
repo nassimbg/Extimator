@@ -1,6 +1,19 @@
-<div class="container">
-    <img src="assets/images/lock.svg" id="lock">
-    <span class="error" *ngIf="error">{{ error }}</span>
+<div class="fixed-expand background-color-v0" fxLayout="row" fxLayoutAlign="center center">
 
-    <button mat-fab (click)="login()" id="google"></button>
+  <div [class.mat-elevation-z10]="!fullScreen" style="padding: 2% 5%; border-radius: 8px; height: 40vh"
+       fxFlex.sm="70" fxFlex.xs="100" fxFlex="50" fxLayout="column" fxLayoutAlign="start stretch">
+
+    <div fxFlex="20" fxFlex.xs="10" class="foreground-color-theme loginTitle">Member Login</div>
+
+    <div fxFlex="30" fxFlex.xs="40" fxLayout="column"  fxLayoutAlign="space-around center" style="margin-top: 10px; margin-bottom: 10px;">
+
+      <button mat-button class="background-color-v10 foreground-color-theme signInButton mat-button-hover-theme"
+              *ngFor="let social of socialLogIns" (click)="login(social.signInType)" fxFlex="{{getFlexSizePerSocialLogin()}}">
+        <mat-icon svgIcon="{{social.name}}" class="signInLogo"></mat-icon>
+        <span>Login With {{social.name}}</span>
+      </button>
+    </div>
+
+    <span class="error" *ngIf="error">{{ error }}</span>
+  </div>
 </div>

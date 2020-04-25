@@ -26,10 +26,12 @@ export class ToolbarComponent implements OnInit {
   }
 
   public logIn() {
-    if (this.isLoggedIn) {
-      this.authService.logOut().then((value) => this.router.navigate(['']));
-    } else {
+    if (!this.isLoggedIn) {
       this.router.navigate(['logIn']);
     }
+  }
+
+  public logOut() {
+    this.authService.logOut().then((value) => this.router.navigate(['']));
   }
 }

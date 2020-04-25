@@ -26,6 +26,7 @@ import {AngularFireAuthModule} from "@angular/fire/auth";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { VotingResultComponent } from './room/room/voting-result/voting-result.component';
 import {NgxEchartsModule} from "ngx-echarts";
+import {HttpClientModule} from "@angular/common/http";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCVLNlwXVYutlM2z1i49dTG9Y85a7Z6qhg',
@@ -61,7 +62,8 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FlexLayoutModule,
-    NgxEchartsModule
+    NgxEchartsModule,
+    HttpClientModule
   ],
   providers: [CardsService, VoteService, AuthService, UserManager, RoomService, StoryService],
 })

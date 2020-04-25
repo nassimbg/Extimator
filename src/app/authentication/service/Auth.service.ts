@@ -12,7 +12,7 @@ import {UserManager} from "../../UserManagement/UserManager.service";
 export class AuthService {
   private readonly user: Observable<User>;
   private _loggedIn: boolean;
-  private _redirectUrl: string;
+  private _popRedirectUrl: string;
 
   constructor(private af: AngularFireAuth, private userManagerService: UserManager) {
     this.user = af.authState
@@ -30,6 +30,20 @@ export class AuthService {
 
   public loginWithGoogle(): Promise<any> {
     return this.logIn(new firebase.auth.GoogleAuthProvider());
+  }
+
+  public loginWithFacebook(): Promise<any> {
+    return this.logIn(new firebase.auth.FacebookAuthProvider());
+  }
+
+  public loginWithTwitter(): Promise<any> {
+    return this.logIn(new firebase.auth.TwitterAuthProvider());
+  }
+
+  public loginWithGitHub(): Promise<any> {
+    let githubAuthProvider = new firebase.auth.GithubAuthProvider();
+    // githubAuthProvider.addScope("read:email");
+    return this.logIn(githubAuthProvider)
   }
 
   private logIn(provider: firebase.auth.AuthProvider): Promise<boolean | void> {
@@ -50,11 +64,13 @@ export class AuthService {
     return this.user;
   }
 
-  get redirectUrl(): string {
-    return this._redirectUrl ? this._redirectUrl : '';
+  get popRedirectUrl(): string {
+    let currentRedirect = this._popRedirectUrl ? this._popRedirectUrl : '';
+    this._popRedirectUrl = '';
+    return currentRedirect;
   }
 
-  set redirectUrl(value: string) {
-    this._redirectUrl = value;
+  set popRedirectUrl(value: string) {
+    this._popRedirectUrl = value;
   }
 }

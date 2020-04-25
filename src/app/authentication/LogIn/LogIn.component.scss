@@ -1,23 +1,16 @@
-div {
-    background-color: #453232!important;
-    color:red;
+.loginTitle {
+  font-size: 3vh;
+  text-align: center;
 }
 
-#lock {
-    width:15%;
-    margin: 1.5em auto 4em auto;
-    display:block;
+.signInButton {
+  width: 215px;
+  line-height: normal !important;
+  text-align: left;
 }
 
-
-#google {
-    border: 1px solid hsl(204, 2%, 59%);
-    background: #fff  url('/assets/images/GoogleLogo.svg') no-repeat;
-    margin: 1.5em auto 4em auto;
-    display: block;
+.signInLogo {
+  max-width: 2em;
+  max-height: 3em;
+  margin-right: 15px
 }
-
-#google:focus {
-  outline: none;
-}
-
