@@ -1,26 +1,42 @@
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthService} from '../service/Auth.service';
-import {UserManager} from "../../UserManagement/UserManager.service";
-import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer} from "@angular/platform-browser";
-import {Utils} from "../../utils/utils";
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
+import {Utils} from '../../utils/utils';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'log-in',
   styleUrls: ['./LogIn.component.scss'],
   templateUrl: './LogIn.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class LogInComponent implements OnInit {
-  public error: Error;
   socialLogIns: SocialLogIn[];
-  public fullScreen: boolean;
+  signInForm: FormGroup;
+  loginInvalid: boolean;
+  loginInProgress: boolean;
+
+  signUpForm: FormGroup;
+  signUpInValid: boolean;
+  emailType : SignInType;
+  signUpErrorMessage: string;
+
+  anonymousType : SignInType;
+  signInAnonymousForm: FormGroup;
+
+  isXSmallScreen: boolean;
+
 
   constructor(private authService: AuthService, private router: Router,  private matIconRegistry: MatIconRegistry,
-              private domSanitizer: DomSanitizer) {
+              private domSanitizer: DomSanitizer, private fb: FormBuilder) {
   }
 
   public login(signInType: SignInType) {
+    this.loginInvalid = false;
+    this.loginInProgress = true;
     let loginStatus;
     switch (signInType) {
       case SignInType.GOOGLE:
@@ -31,21 +47,21 @@ export class LogInComponent implements OnInit {
         loginStatus = this.authService
           .loginWithFacebook();
         break;
-      case SignInType.TWITTER:
-        loginStatus = this.authService
-          .loginWithTwitter();
-        break;
       case SignInType.GITHUB:
         loginStatus = this.authService
           .loginWithGitHub();
+        break;
+      case SignInType.EMAIL:
+        loginStatus = this.logInWithEmail()
+        break;
+      case SignInType.ANONYMOUS:
+        loginStatus = this.loginAnonymously();
         break;
       default:
         loginStatus = Promise.reject();
     }
 
-    loginStatus
-      .then((data) => this.router.navigate([this.authService.popRedirectUrl]))
-      .catch((error) => (this.error = error));
+    this.finalizeAndReroute(loginStatus);
   }
 
   ngOnInit(): void {
@@ -53,16 +69,34 @@ export class LogInComponent implements OnInit {
 
     this.registerLoginIcons(this.socialLogIns);
 
-    this.fullScreen = !Utils.isAtLeastSmallScreen();
+    this.isXSmallScreen = !Utils.isAtLeastSmallScreen();
+
+    this.signInAnonymousForm = this.fb.group({
+      username: ['', Validators.required],
+      gender: new FormControl('male')
+    });
+
+    this.signInForm = this.fb.group({
+      username: ['', Validators.email],
+      password: ['', Validators.required]
+    });
+
+    this.signUpForm = this.fb.group({
+      email: ['', Validators.email],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      gender: new FormControl('male')
+    });
+
+    this.emailType = SignInType.EMAIL;
+    this.anonymousType = SignInType.ANONYMOUS;
   }
 
   private static createLogInTypes() {
-    let socialLogIns = [];
+    const socialLogIns = [];
     socialLogIns.push(new SocialLogIn(SignInType.GOOGLE));
     socialLogIns.push(new SocialLogIn(SignInType.FACEBOOK));
     socialLogIns.push(new SocialLogIn(SignInType.GITHUB));
-    //todo activate when twitter validation creation of app
-    // socialLogIns.push(new SocialLogIn(SignInType.TWITTER));
 
     return socialLogIns;
   }
@@ -77,20 +111,86 @@ export class LogInComponent implements OnInit {
   }
 
   getFlexSizePerSocialLogin() {
-    return Math.min(100/this.socialLogIns.length, 33) - 2;
+    return Math.min(100 / this.socialLogIns.length, 33) - 2;
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.fullScreen = event.target.innerWidth < Utils.getMinSmallScreenSize();
+    this.isXSmallScreen = event.target.innerWidth < Utils.getMinSmallScreenSize();
+  }
+
+  private loginAnonymously() {
+    if (this.signInAnonymousForm.valid) {
+      const username = this.signInAnonymousForm.get('username').value;
+      const gender = this.signInAnonymousForm.get('gender').value;
+      const photoURL = LogInComponent.getAvatarPerGender(gender);
+
+      return this.authService.signInAnonymously(username, photoURL);
+    }
+
+    return Promise.reject();
+  }
+
+  private logInWithEmail(): Promise<any> {
+    if (this.signInForm.valid) {
+      const username = this.signInForm.get('username').value;
+      const password = this.signInForm.get('password').value;
+      return this.authService.loginWithEmail(username, password)
+        .catch(error => {
+          this.loginInvalid = true;
+          return Promise.reject();
+        });
+    } else {
+      this.loginInvalid = true;
+    }
+    return Promise.reject();
+  }
+
+  signUpWithEmail() {
+    this.signUpInValid = false;
+    this.loginInProgress = true;
+
+    if (this.signUpForm.valid) {
+      const email = this.signUpForm.get('email').value;
+      const username = this.signUpForm.get('username').value;
+      const password = this.signUpForm.get('password').value;
+      const gender = this.signUpForm.get('gender').value;
+      const photoURL = LogInComponent.getAvatarPerGender(gender);
+
+      const p = this.authService.signUpWithEmail(email, password, username, photoURL)
+        .catch(error => {
+          this.signUpInValid = true;
+          this.signUpErrorMessage = error.message;
+          return Promise.reject();
+        });
+
+      this.finalizeAndReroute(p);
+    }
+  }
+
+  private static getAvatarPerGender(gender: any) {
+    const avatarsPerGender = gender.toString().toLowerCase() === 'male' ? 6 : 3;
+    const avatarNumber = LogInComponent.getRandomInt(avatarsPerGender - 1);
+    return `assets/images/avatar/${gender}_${avatarNumber}.svg`;
+  }
+
+  private static getRandomInt(max: number): number {
+    return _.random(max);
+  }
+
+  private async finalizeAndReroute(p : Promise<any>) {
+    await p.then((data) => this.router.navigate([this.authService.popRedirectUrl]))
+      .catch(error => console.error(error.message));
+    this.loginInProgress = false
   }
 }
 
 enum SignInType {
-  GOOGLE = "GOOGLE",
-  FACEBOOK = "FACEBOOK",
-  TWITTER = "TWITTER",
-  GITHUB = "GITHUB"
+  GOOGLE = 'GOOGLE',
+  FACEBOOK = 'FACEBOOK',
+  GITHUB = 'GITHUB',
+  EMAIL = 'EMAIL',
+  ANONYMOUS = 'ANONYMOUS'
 }
 
 class SocialLogIn {

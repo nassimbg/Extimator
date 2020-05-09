@@ -15,9 +15,11 @@ export class UserManager {
 
   registerUser(userData: User) {
     this.itemsRef.set(userData.id, userData);
+    return userData;
   }
 
   findUser(userID: string): Observable<User> {
-     return this.af.object<User>(UserManager.userPath + userID).valueChanges();
+     return this.af.object<User>(UserManager.userPath + userID)
+       .valueChanges();
   }
 }

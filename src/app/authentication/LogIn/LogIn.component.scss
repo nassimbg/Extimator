@@ -1,5 +1,15 @@
+.loginBox {
+  border-radius: 8px;
+  height: 50vh;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.loginBoxPadding {
+  padding: 2vh 2vw;
+}
+
 .loginTitle {
-  font-size: 3vh;
   text-align: center;
 }
 
@@ -13,4 +23,52 @@
   max-width: 2em;
   max-height: 3em;
   margin-right: 15px
+}
+
+
+.or {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.or span {
+  padding:0 10px;
+}
+
+
+.mat-form-field.ng-invalid:not(form) {
+  border-left: none !important;
+}
+
+.mat-tab-body-wrapper {
+  flex-grow: 1;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 100;
+}
+
+.overlay{
+  z-index:    10;
+  top:        0;
+  left:       0;
+  position:   fixed;
+}
+
+.gender-radio-group {
+  //display: flex; flex-direction: row;
+  ///* display: inline-grid; */
+  /* display: grid; */
+}
+.mat-radio-button {
+  margin: 0 12px;
 }

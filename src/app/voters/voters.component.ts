@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import { VoteService } from '../vote-service/vote.service';
 import {CardsService} from "../cards/card-service/cards.service";
 import {UserManager} from "../UserManagement/UserManager.service";
-import {delay, map, mergeMap, tap} from "rxjs/operators";
+import {delay, filter, map, mergeMap, tap} from "rxjs/operators";
 import {RoomService} from "../room/room-service/room.service";
 import {combineLatest, of} from "rxjs";
 import {User} from "../UserManagement/user";
@@ -35,12 +35,13 @@ export class VotersComponent implements OnInit, OnChanges {
       .pipe(
         mergeMap(participants => combineLatest(participants.map(participantId => this.userService.findUser(participantId)))),
         map(participants => fromArray(participants)),
-        mergeMap(obv => obv)
+        mergeMap(obv => obv),
+        filter(user => user !== null)
       ).subscribe(participant => this.addUserToParticipants(participant));
   }
 
   private addUserToParticipants(user) {
-    let displayedVoter = this.participants.get(user.id);
+    const displayedVoter = this.participants.get(user.id);
 
     if (displayedVoter) {
       displayedVoter.user = user;

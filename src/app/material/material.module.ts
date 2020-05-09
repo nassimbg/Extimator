@@ -10,6 +10,12 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatListModule} from "@angular/material/list";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -25,7 +31,13 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatChipsModule,
     MatListModule,
     MatTooltipModule,
-    MatSidenav
+    MatSidenav,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    MatRadioModule,
+    MatProgressSpinnerModule
   ],
   imports: [
     BrowserAnimationsModule,
@@ -38,7 +50,13 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatButtonToggleModule,
     MatChipsModule,
     MatListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    MatRadioModule,
+    MatProgressSpinnerModule
   ],
 })
 export class MaterialModule {}

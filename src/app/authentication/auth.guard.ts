@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
     }
 
     // Store the attempted URL for redirecting
-    this.authService.popRedirectUrl = url;
+    this.authService.addRedirectUrl = url;
 
     // Navigate to the login page with extras
     return this.router.createUrlTree(['logIn']);

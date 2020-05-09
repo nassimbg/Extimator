@@ -1,17 +1,31 @@
 <mat-toolbar class="toolbar" color="primary">
-  <a mat-button class="toolbar-button" routerLink="/" routerLinkActive="inactive"><span class="title">eXtimater</span></a>
-  <span class="flexing"> </span>
-  <a *ngIf=isLoggedIn mat-button class="toolbar-button" routerLink="/create-room" routerLinkActive="inactive">Create Room</a>
 
-  <button mat-icon-button class="no-focus-button login-button mat-elevation-z5" (click)="logIn()" [matMenuTriggerFor]=" isLoggedIn ? menu : null">
+  <button mat-button class="no-focus-button" (click)="goToMain()">
+    <span class="title">eXtimater</span>
+  </button>
+
+  <span class="flexing"> </span>
+
+
+  <button mat-button *ngIf="isLoggedIn && !isXSmallScreen" class="no-focus-button toolbar-button" (click)="createRoom()">
+    <span>Create Room</span>
+  </button>
+
+  <button mat-icon-button class="no-focus-button login-button mat-elevation-z5" (click)="logIn()"
+          [matMenuTriggerFor]="isLoggedIn ? menu : undefined">
     <img class="user-profile-image" [src]="profileImageUrl">
   </button>
 
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-  <button class="no-focus-button" mat-menu-item (click)="logOut()" >
+  <button class="no-focus-button" mat-menu-item (click)="logOut()">
     <mat-icon>exit_to_app</mat-icon>
     <span>Logout</span>
+  </button>
+
+  <button *ngIf="isXSmallScreen" mat-menu-item (click)="createRoom()">
+    <mat-icon>add_box</mat-icon>
+    <span>Create Room</span>
   </button>
 </mat-menu>

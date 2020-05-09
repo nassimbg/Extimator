@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../authentication/service/Auth.service';
+import {Utils} from '../utils/utils';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,10 +11,13 @@ import { AuthService } from '../authentication/service/Auth.service';
 export class ToolbarComponent implements OnInit {
   public isLoggedIn: boolean;
   public profileImageUrl: string;
+  isXSmallScreen: boolean;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   public ngOnInit() {
+    this.isXSmallScreen = !Utils.isAtLeastSmallScreen();
+
     this.authService.getUser().subscribe((user) => {
       if (user == null) {
         this.profileImageUrl = 'assets/images/ic_account_circle_white_48px.svg';
@@ -32,6 +36,20 @@ export class ToolbarComponent implements OnInit {
   }
 
   public logOut() {
-    this.authService.logOut().then((value) => this.router.navigate(['']));
+    this.authService.logOut().then((value) => this.goToMain());
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.isXSmallScreen = event.target.innerWidth < Utils.getMinSmallScreenSize();
+  }
+
+  createRoom() {
+    this.router.navigate(['create-room']);
+  }
+
+  goToMain() {
+    this.router.navigate(['']);
   }
 }

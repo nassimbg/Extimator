@@ -1,6 +1,7 @@
 @import "./pink-bluegrey";
+@import "./teal-pink";
 
-$theme: $pinkBlueGreyDarkTheme;
+$theme: $greenBlueGreyDarkTheme;
 
 
 // Copy the palettes from your selected theme (usually theme.scss).
@@ -27,22 +28,41 @@ $warn: mat-color($app-warn);
   @return mat-color($app-warn, $hue);
 }
 
-@function background($percentage: 0%) {
+@function getBackgroundColor($backgroundPalette: $app-background) {
+  @return map-get($backgroundPalette, background);
+}
+
+@function reverseBackground($percentage: 0%) {
   @if map-get($theme, is-dark) {
-    @return lighten(map-get($app-background, background), $percentage);
+    @return lighten(getBackgroundColor(), $percentage);
   } @else {
-    @return darken(map-get($app-background, background), $percentage);
+    @return darken(getBackgroundColor(), $percentage);
   }
 }
 
+@function background($percentage: 0%) {
+  @if map-get($theme, is-dark) {
+    @return darken(getBackgroundColor(), $percentage);
+  } @else {
+    @return lighten(getBackgroundColor(), $percentage);
+  }
+}
+
+$darker: darken(getBackgroundColor($mat-dark-theme-background), 10%);
+$darkerTraspenecy: transparentize($darker, 0.3);
+
 //mixins
-@mixin background-color-theme($theme) {
+@mixin background-color-theming($theme) {
   .background-color-v10 {
-    background-color: background(10%) !important;
+    background-color: reverseBackground(10%) !important;
   }
 
   .background-color-v0 {
-    background-color: background(0%);
+    background-color: reverseBackground(0%);
+  }
+
+  .background-color-darker {
+    background-color: $darkerTraspenecy;
   }
 
   .primary-background-color {
@@ -50,12 +70,12 @@ $warn: mat-color($app-warn);
   }
 
   :root {
-    --backgroundColor: #{background()};
+    --backgroundColor: #{reverseBackground()};
   }
 }
 
 
-@mixin foreground-color-theme($theme) {
+@mixin foreground-color-theming($theme) {
   $foreground: map-get($theme, foreground);
 
   .foreground-color-theme {
@@ -64,41 +84,44 @@ $warn: mat-color($app-warn);
   }
 }
 
-@mixin mat-sidnav-theme($theme) {
+@mixin mat-sidnav-theming($theme) {
   .mat-drawer-backdrop.mat-drawer-shown {
-    $opacity: 0.6;
-    $background: map-get($theme, background);
-    $backdrop-color: mat-color($background, card, $opacity);
 
-    background-color: rgba(5, 1, 1, 0.73) !important;
+    background-color: $darkerTraspenecy !important;
   }
 }
 
-@mixin mat-button-toggle-theme($theme) {
+@mixin mat-button-toggle-theming($theme) {
 
   .mat-button-toggle {
-    background-color: primary();
-    color: mat-color($app-primary, default-contrast);
+    background-color: primary() !important;
   }
 
   .mat-button-toggle-checked {
-    background-color: accent();
-    color: mat-color($app-accent, default-contrast);
+    background-color: accent() !important;;
   }
 }
 
-@mixin mat-button-theme($theme) {
+@mixin mat-button-theming($theme) {
 
   .mat-button.mat-button-hover-theme:hover {
-    background-color: background(30%) !important;
+    background-color: reverseBackground(30%) !important;
+  }
+}
+
+@mixin mat-input-theming($theme) {
+  .mat-input-element {
+    color: mat-color($app-primary, text) !important;
   }
 }
 
 @mixin theme($theme) {
-  @include background-color-theme($theme);
-  @include foreground-color-theme($theme);
-  @include mat-button-toggle-theme($theme);
-  @include mat-button-theme($theme);
+  @include background-color-theming($theme);
+  @include foreground-color-theming($theme);
+  @include mat-sidnav-theming($theme);
+  @include mat-button-toggle-theming($theme);
+  @include mat-button-theming($theme);
+  @include mat-input-theming($theme);
 }
 
 //include

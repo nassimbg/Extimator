@@ -1,19 +1,131 @@
-<div class="fixed-expand background-color-v0" fxLayout="row" fxLayoutAlign="center center">
+<div fxFill class="background-color-v0" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="center center">
 
-  <div [class.mat-elevation-z10]="!fullScreen" style="padding: 2% 5%; border-radius: 8px; height: 40vh"
-       fxFlex.sm="70" fxFlex.xs="100" fxFlex="50" fxLayout="column" fxLayoutAlign="start stretch">
-
-    <div fxFlex="20" fxFlex.xs="10" class="foreground-color-theme loginTitle">Member Login</div>
-
-    <div fxFlex="30" fxFlex.xs="40" fxLayout="column"  fxLayoutAlign="space-around center" style="margin-top: 10px; margin-bottom: 10px;">
-
-      <button mat-button class="background-color-v10 foreground-color-theme signInButton mat-button-hover-theme"
-              *ngFor="let social of socialLogIns" (click)="login(social.signInType)" fxFlex="{{getFlexSizePerSocialLogin()}}">
-        <mat-icon svgIcon="{{social.name}}" class="signInLogo"></mat-icon>
-        <span>Login With {{social.name}}</span>
-      </button>
+  <div fxFill class="overlay background-color-darker" *ngIf="loginInProgress">
+    <div class="center">
+      <mat-spinner></mat-spinner>
     </div>
+  </div>
 
-    <span class="error" *ngIf="error">{{ error }}</span>
+  <div [class.loginBox]="!isXSmallScreen" [class.fixed-expand]="isXSmallScreen"
+       [class.mat-elevation-z10]="!isXSmallScreen" class="loginBoxPadding"
+       fxFlex.sm="70" fxFlex.gt-sm="40">
+
+    <mat-tab-group color="primary" mat-stretch-tabs fxFill>
+
+      <mat-tab label="Anonymous">
+        <div fxLayout="column" fxLayoutAlign.xs="center stretch"
+             fxLayoutAlign="space-evenly" fxFill>
+          <form style="margin: 0 auto" [formGroup]="signInAnonymousForm" (ngSubmit)="login(anonymousType)">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Anonymous" formControlName="username" required>
+              <mat-error>
+                Please provide a valid name
+              </mat-error>
+            </mat-form-field>
+
+            <div class="full-width">
+              <label class="foreground-color-theme">Gender: </label>
+              <mat-radio-group formControlName="gender" class="gender-radio-group">
+                <mat-radio-button class="foreground-color-theme" value="male">Male</mat-radio-button>
+                <mat-radio-button class="foreground-color-theme" value="female">Female</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="full-width" style="text-align:center;">
+              <button mat-raised-button color="primary" style="width: 215px">Sign In</button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Sign In">
+        <div fxLayout="column" fxLayoutAlign.xs="start stretch"
+             fxLayoutAlign="space-evenly stretch" fxFill>
+
+          <div fxFlex="30" fxLayout="column" fxLayoutAlign="space-evenly center"
+               style="margin-top: 10px; margin-bottom: 10px;">
+
+            <button mat-button class="background-color-v10 foreground-color-theme signInButton mat-button-hover-theme"
+                    *ngFor="let social of socialLogIns" (click)="login(social.signInType)"
+                    fxFlex="{{getFlexSizePerSocialLogin()}}">
+              <mat-icon svgIcon="{{social.name}}" class="signInLogo"></mat-icon>
+              <span>Login With {{social.name}}</span>
+            </button>
+          </div>
+
+          <div fxFlex="10" fxLayout="column" fxLayoutAlign="center stretch">
+            <div class="or foreground-color-theme"><span class="background-color-v0">or</span></div>
+          </div>
+
+
+          <form style="margin: 0 auto" [formGroup]="signInForm" (ngSubmit)="login(emailType)">
+            <mat-error *ngIf="loginInvalid">
+              The username and password were not recognised
+            </mat-error>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email" formControlName="username" required>
+              <mat-error>
+                Please provide a valid email address
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input matInput type="password" placeholder="Password" formControlName="password" required>
+              <mat-error>
+                Please provide a valid password
+              </mat-error>
+            </mat-form-field>
+            <div class="full-width" style="text-align:center;">
+              <button mat-raised-button color="primary" style="width: 215px">Sign In</button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+
+
+      <mat-tab label="Sign Up">
+        <div fxLayout="column" fxLayoutAlign.xs="center stretch"
+             fxLayoutAlign="space-evenly" fxFill>
+          <form style="margin: 0 auto" [formGroup]="signUpForm" (ngSubmit)="signUpWithEmail()">
+            <mat-error *ngIf="signUpInValid">
+              {{signUpErrorMessage}}
+            </mat-error>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email" formControlName="email" required>
+              <mat-error>
+                Please provide a valid email address
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Username" formControlName="username" required>
+              <mat-error>
+                Please provide a valid username
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput type="password" placeholder="Password" formControlName="password" required>
+              <mat-error>
+                Please provide a valid password
+              </mat-error>
+            </mat-form-field>
+
+            <div class="full-width">
+              <label class="foreground-color-theme">Gender: </label>
+              <mat-radio-group formControlName="gender" class="gender-radio-group">
+                <mat-radio-button class="foreground-color-theme" value="male">Male</mat-radio-button>
+                <mat-radio-button class="foreground-color-theme" value="female">Female</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="full-width" style="text-align:center;">
+              <button mat-raised-button color="primary" style="width: 215px">Sign Up</button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
+
+

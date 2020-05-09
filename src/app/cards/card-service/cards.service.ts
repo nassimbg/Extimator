@@ -17,6 +17,7 @@ export class CardsService {
   constructor(private af: AngularFireDatabase) {
     this.imageNames = new Map()
       .set(-1, "Cover")
+      .set(1,"Half")
       .set(2,1)
       .set(3,2)
       .set(4,3)

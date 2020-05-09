@@ -30,7 +30,8 @@ export class RoomComponent implements OnInit {
     this.route.paramMap
       .pipe(map((params: ParamMap) =>  params.get('id')))
       .subscribe(id => {
-        this.auth.getUser().subscribe( p=> this.roomService.addParticipant(id,p.id ));
+        this.auth
+          .getUser().subscribe(p => this.roomService.addParticipant(id, p.id));
         this.roomId = id;
       });
 
