@@ -5,26 +5,28 @@ import {Observable} from "rxjs";
 import {filter, map, tap} from 'rxjs/operators';
 import {AngularFireAuth} from "@angular/fire/auth";
 import {UserManager} from "../../UserManagement/UserManager.service";
+import {SubscriptionHandler} from '../../utils/subscription-handler';
 
 
 @Injectable()
-export class AuthService {
+export class AuthService extends SubscriptionHandler {
   private readonly user: Observable<User>;
   private _loggedIn: boolean;
   private _popRedirectUrl: string;
 
   constructor(private af: AngularFireAuth, private userManagerService: UserManager) {
+    super();
     this.user = af.user
       .pipe(
         map(p => p == null ? null : AuthService.createUser(p))
       );
     this._loggedIn = false;
-    this.getUser()
+    this.addSubscription(this.getUser()
       .pipe(filter(user => user !== null))
       .subscribe(user => {
         this.userManagerService.registerUser(user);
         this._loggedIn = true;
-      });
+      }));
   }
 
   private static createUser(user: firebase.User) {

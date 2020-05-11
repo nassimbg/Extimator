@@ -7,6 +7,7 @@ import * as _ from 'lodash'
 import {combineLatest, Observable} from "rxjs";
 import 'echarts/theme/azul.js';
 import {Utils} from "../../../utils/utils";
+import {Subscription} from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-voting-result',
@@ -28,6 +29,8 @@ export class VotingResultComponent implements OnInit, OnChanges {
   @ViewChild('chart')
   private chart : ElementRef;
 
+  private votesSubscription : Subscription;
+
   constructor(private voteService: VoteService, private cardsService: CardsService) {
     this.theme = 'azul';
   }
@@ -36,9 +39,14 @@ export class VotingResultComponent implements OnInit, OnChanges {
     let currentStory = changes.currentStory;
 
     if (currentStory?.currentValue) {
-      this.voteService.getVotes(this.roomId, currentStory.currentValue)
+
+      if (this.votesSubscription !== null) {
+        this.votesSubscription.unsubscribe();
+      }
+
+      this.votesSubscription = this.voteService.getVotes(this.roomId, currentStory.currentValue)
         .pipe(
-          map(votes => this.transformVotesToEChartsData(votes) ),
+          map(votes => this.transformVotesToEChartsData(votes)),
           mergeMap(innerObservable => innerObservable)
         ).subscribe((vote) => this.options = this.createOptions(vote));
     }

@@ -4,13 +4,15 @@ import { CardsService } from './card-service/cards.service';
 import { VoteService } from '../vote-service/vote.service';
 import { Card } from './card';
 import { Vote } from '../vote-service/vote';
+import {SubscriptionHandler} from '../utils/subscription-handler';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-cards',
   styleUrls: ['./cards.component.scss'],
   templateUrl: './cards.component.html',
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent extends SubscriptionHandler implements OnInit {
   public cards: Card[];
   public selectedCard: Card;
   private userId: string;
@@ -26,16 +28,18 @@ export class CardsComponent implements OnInit {
     private cardsService: CardsService,
     private voteService: VoteService,
     private authService: AuthService
-  ) {}
-
-  public ngOnInit() {
-    this.getCards();
-    this.cardSelected = false;
-    this.authService.getUser().subscribe((user) => (this.userId = user.id));
+  ) {
+    super();
   }
 
-  private getCards(): void {
-    this.cardsService.getCards().subscribe((cards) => (this.cards = cards));
+  public ngOnInit() {
+    this.addSubscription(this.getCards());
+    this.cardSelected = false;
+    this.addSubscription(this.authService.getUser().subscribe((user) => (this.userId = user.id)));
+  }
+
+  private getCards(): Subscription {
+    return this.cardsService.getCards().subscribe((cards) => (this.cards = cards));
   }
 
   onSelect($event: MouseEvent, selectedCard : Card) {

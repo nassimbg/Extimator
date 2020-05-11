@@ -10,6 +10,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "outDir": "../dist/out-tsc",
+    //find a way to separate the mapping from the source code to reduce the vendor.js size in Audit section of dev tools
     "sourceMap": true,
     "target": "es2015",
     "typeRoots": ["../node_modules/@types"],

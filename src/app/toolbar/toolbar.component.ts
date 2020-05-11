@@ -2,23 +2,26 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../authentication/service/Auth.service';
 import {Utils} from '../utils/utils';
+import {SubscriptionHandler} from '../utils/subscription-handler';
 
 @Component({
   selector: 'app-toolbar',
   styleUrls: ['./toolbar.component.scss'],
   templateUrl: './toolbar.component.html',
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent extends SubscriptionHandler implements OnInit {
   public isLoggedIn: boolean;
   public profileImageUrl: string;
   isXSmallScreen: boolean;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+    super();
+  }
 
   public ngOnInit() {
     this.isXSmallScreen = !Utils.isAtLeastSmallScreen();
 
-    this.authService.getUser().subscribe((user) => {
+    this.addSubscription(this.authService.getUser().subscribe((user) => {
       if (user == null) {
         this.profileImageUrl = 'assets/images/ic_account_circle_white_48px.svg';
         this.isLoggedIn = false;
@@ -26,7 +29,7 @@ export class ToolbarComponent implements OnInit {
         this.isLoggedIn = true;
         this.profileImageUrl = user.photoURL;
       }
-    });
+    }));
   }
 
   public logIn() {

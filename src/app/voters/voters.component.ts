@@ -7,13 +7,15 @@ import {RoomService} from "../room/room-service/room.service";
 import {combineLatest, of} from "rxjs";
 import {User} from "../UserManagement/user";
 import {fromArray} from "rxjs/internal/observable/fromArray";
+import {SubscriptionHandler} from '../utils/subscription-handler';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-voters',
   styleUrls: ['./voters.component.scss'],
   templateUrl: './voters.component.html',
 })
-export class VotersComponent implements OnInit, OnChanges {
+export class VotersComponent extends SubscriptionHandler implements OnInit, OnChanges {
 
   public participants: Map<string, DisplayedVoter>;
 
@@ -26,18 +28,23 @@ export class VotersComponent implements OnInit, OnChanges {
   @Input()
   private currentStory: string;
 
+  private cardSubscription : Subscription;
+  private votesSubscription : Subscription;
+
   constructor(private voteService: VoteService, private cardsService: CardsService, private userService: UserManager, private roomService: RoomService) {
+    super();
     this.participants = new Map();
   }
 
   public ngOnInit() {
-    this.roomService.getParticipants(this.roomId)
+    this.addSubscription(this.roomService.getParticipants(this.roomId)
       .pipe(
         mergeMap(participants => combineLatest(participants.map(participantId => this.userService.findUser(participantId)))),
         map(participants => fromArray(participants)),
         mergeMap(obv => obv),
         filter(user => user !== null)
-      ).subscribe(participant => this.addUserToParticipants(participant));
+      )
+      .subscribe(participant => this.addUserToParticipants(participant)));
   }
 
   private addUserToParticipants(user) {
@@ -54,8 +61,11 @@ export class VotersComponent implements OnInit, OnChanges {
     let currentStory = changes.currentStory;
 
     if (currentStory?.currentValue !== currentStory?.previousValue) {
+      if (this.votesSubscription !== null) {
+        this.votesSubscription.unsubscribe();
+      }
 
-      this.voteService.getVotes(this.roomId, currentStory.currentValue)
+      this.votesSubscription = this.voteService.getVotes(this.roomId, currentStory.currentValue)
         .pipe(
           tap(() => this.participants?.forEach(voter => voter.resetVote())),
           map(votes => fromArray(votes)),
@@ -72,7 +82,10 @@ export class VotersComponent implements OnInit, OnChanges {
       this.participants.set(vote.userID, displayedVoter);
     }
 
-    this.cardsService
+    if (this.cardSubscription !== null) {
+      this.cardSubscription.unsubscribe();
+    }
+    this.cardSubscription = this.cardsService
       .getCardValueFor(vote.cardId)
       .subscribe(cardTitle => displayedVoter.setVote(true, cardTitle));
   }
