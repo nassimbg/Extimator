@@ -39,3 +39,47 @@ body {
   max-height: 100%;
 }
 
+
+.middleBox {
+  border-radius: 8px;
+  height: 50vh;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.middleBoxPadding {
+  padding: 2vh 2vw;
+}
+
+//Overriding material design css
+.mat-form-field.ng-invalid:not(form) {
+  border-left: none !important;
+}
+
+.mat-tab-body-wrapper {
+  flex-grow: 1;
+}
+
+
+.or {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.or span {
+  padding:0 10px;
+}
+
+
+.marginningForm {
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 960px) {
+  .marginningForm {
+    margin: 0 20%;
+  }
+}

@@ -1,0 +1,80 @@
+<div fxFlexFill class="background-color-v0" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="center center">
+
+  <div fxFill class="overlay background-color-darker" *ngIf="false">
+    <div class="center">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+
+  <div [class.middleBox]="!isXSmallScreen" [class.fixed-expand]="isXSmallScreen"
+       [class.mat-elevation-z10]="!isXSmallScreen" class="middleBoxPadding"
+       fxFlex.sm="70" fxFlex.gt-sm="40">
+
+    <mat-tab-group color="primary" mat-stretch-tabs fxFill>
+      <mat-tab label="Create Room">
+        <div fxLayout="column" fxLayoutAlign.xs="center stretch"
+             fxLayoutAlign="space-evenly" fxFill>
+          <form class="marginningForm" [formGroup]="createRoomForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Room Name" formControlName="roomName" required>
+              <mat-error>
+                Please provide a valid Room name
+              </mat-error>
+            </mat-form-field>
+
+
+            <div class="full-width" style="text-align:center;" fxLayout="row" fxLayoutAlign="space-evenly">
+              <button mat-raised-button color="primary" style="width: 215px; margin-right: 10px">Create</button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Find Room">
+        <div fxLayout="column" fxLayoutAlign.xs="center stretch"
+             fxLayoutAlign="space-evenly" fxFill>
+          <form class="marginningForm" [formGroup]="findRoomForm" (ngSubmit)="findRoom()">
+
+            <mat-error *ngIf="roomDoesntExist">
+              Pick an existing Room
+            </mat-error>
+
+            <mat-form-field class="full-width">
+                <mat-label>My Rooms</mat-label>
+                <mat-select formControlName="selectedRoom">
+                  <mat-option>
+                    {{'-'}}
+                  </mat-option>
+                  <mat-option *ngFor="let room of myRooms" [value]="room[0]">
+                    {{room[1]}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div  fxLayout="column" fxLayoutAlign="center stretch">
+              <div class="or foreground-color-theme"><span class="background-color-v0">or</span></div>
+            </div>
+
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Room ID" formControlName="roomID">
+              <mat-error>
+                Please provide a valid Room ID
+              </mat-error>
+            </mat-form-field>
+
+
+            <div class="full-width" style="text-align:center;" fxLayout="row" fxLayoutAlign="space-evenly">
+              <button mat-raised-button color="primary" style="width: 215px; margin-right: 10px">Find</button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+
+  </div>
+</div>
+
+

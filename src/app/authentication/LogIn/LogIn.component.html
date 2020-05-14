@@ -6,8 +6,8 @@
     </div>
   </div>
 
-  <div [class.loginBox]="!isXSmallScreen" [class.fixed-expand]="isXSmallScreen"
-       [class.mat-elevation-z10]="!isXSmallScreen" class="loginBoxPadding"
+  <div [class.middleBox]="!isXSmallScreen" [class.fixed-expand]="isXSmallScreen"
+       [class.mat-elevation-z10]="!isXSmallScreen" class="middleBoxPadding"
        fxFlex.sm="70" fxFlex.gt-sm="40">
 
     <mat-tab-group color="primary" mat-stretch-tabs fxFill>
@@ -15,7 +15,7 @@
       <mat-tab label="Anonymous">
         <div fxLayout="column" fxLayoutAlign.xs="center stretch"
              fxLayoutAlign="space-evenly" fxFill>
-          <form style="margin: 0 auto" [formGroup]="signInAnonymousForm" (ngSubmit)="login(anonymousType)">
+          <form class="marginningForm" [formGroup]="signInAnonymousForm" (ngSubmit)="login(anonymousType)">
             <mat-form-field class="full-width">
               <input matInput placeholder="Anonymous" formControlName="username" required>
               <mat-error>
@@ -58,7 +58,7 @@
           </div>
 
 
-          <form style="margin: 0 auto" [formGroup]="signInForm" (ngSubmit)="login(emailType)">
+          <form class="marginningForm" [formGroup]="signInForm" (ngSubmit)="login(emailType)">
             <mat-error *ngIf="loginInvalid">
               The username and password were not recognised
             </mat-error>
@@ -85,7 +85,7 @@
       <mat-tab label="Sign Up">
         <div fxLayout="column" fxLayoutAlign.xs="center stretch"
              fxLayoutAlign="space-evenly" fxFill>
-          <form style="margin: 0 auto" [formGroup]="signUpForm" (ngSubmit)="signUpWithEmail()">
+          <form class="marginningForm" [formGroup]="signUpForm" (ngSubmit)="signUpWithEmail()">
             <mat-error *ngIf="signUpInValid">
               {{signUpErrorMessage}}
             </mat-error>

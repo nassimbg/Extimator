@@ -24,7 +24,7 @@ export class Utils {
   }
 
   public static handlePromiseError(error: any): Promise<any> {
-    console.log(error);
-    return error;
+    console.error(error);
+    return Promise.reject();
   }
 }

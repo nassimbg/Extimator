@@ -40,7 +40,7 @@ export class VotingResultComponent implements OnInit, OnChanges {
 
     if (currentStory?.currentValue) {
 
-      if (this.votesSubscription !== null) {
+      if (!!this.votesSubscription) {
         this.votesSubscription.unsubscribe();
       }
 

@@ -15,9 +15,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthService } from './authentication/service/Auth.service';
 import { LogInComponent } from './authentication/LogIn/LogIn.component';
 import {UserManager} from "./UserManagement/UserManager.service";
-import { CreateRoomComponent } from './room/create-room/create-room.component';
+import { PickRoomComponent } from './room/create-room/pick-room.component';
 import {RoomService} from "./room/room-service/room.service";
-import { PickRoomComponent } from './room/pick-room/pick-room.component';
 import { RoomStoriesComponent } from './room-stories/room-stories.component';
 import { StoryService } from "app/story-service/story.service";
 import {AngularFireModule} from "@angular/fire";
@@ -48,7 +47,6 @@ export const firebaseConfig = {
     VotersComponent,
     LogInComponent,
     ToolbarComponent,
-    CreateRoomComponent,
     PickRoomComponent,
     RoomStoriesComponent,
     VotingResultComponent

@@ -3,6 +3,7 @@ import { Room } from "../room";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
+import {Utils} from '../../utils/utils';
 
 @Injectable()
 export class RoomService {
@@ -17,6 +18,13 @@ export class RoomService {
 
   push(room: Room): string {
     return this.angularFireRooms.push(room).key;
+  }
+
+  doesRoomExist(roomId: string): Promise<boolean> {
+    return this.af.database.ref(RoomService.roomsPath + roomId)
+      .once('value')
+      .then(t => t.exists())
+      .catch(error => Utils.handlePromiseError(error));
   }
 
   addParticipant(roomId: string, userId: string) {

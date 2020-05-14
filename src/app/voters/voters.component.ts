@@ -61,7 +61,7 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
     let currentStory = changes.currentStory;
 
     if (currentStory?.currentValue !== currentStory?.previousValue) {
-      if (this.votesSubscription !== null) {
+      if (!!this.votesSubscription) {
         this.votesSubscription.unsubscribe();
       }
 
@@ -82,7 +82,7 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
       this.participants.set(vote.userID, displayedVoter);
     }
 
-    if (this.cardSubscription !== null) {
+    if (!!this.cardSubscription) {
       this.cardSubscription.unsubscribe();
     }
     this.cardSubscription = this.cardsService
