@@ -83,3 +83,7 @@ body {
     margin: 0 20%;
   }
 }
+
+.ng-invalid:not(form) {
+  border-left: none !important;
+}
