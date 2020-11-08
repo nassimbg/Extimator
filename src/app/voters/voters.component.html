@@ -3,6 +3,5 @@
     <div matListAvatar matTooltip={{vote.value.userName}} [matTooltipPosition]="'right'"
          [style.backgroundImage]="getVoterPhoto(vote.value)" [style.border-color]="getVotingStatues(vote.value)" class="avatar"></div>
     <div matLine *ngIf="showMore"><span>{{vote.value.userName}}</span></div>
-    <div matLine *ngIf="showMore"><span>{{vote.value._cardTitle}}</span></div>
   </mat-list-item>
 </mat-list>

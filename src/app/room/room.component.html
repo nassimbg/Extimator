@@ -1,5 +1,5 @@
-<mat-sidenav-container fxFill autosize>
-  <mat-sidenav #sidenav opened mode="side" position="start" class="sideNav">
+<mat-sidenav-container fxFill autosize [hasBackdrop]="hasBackdrop">
+  <mat-sidenav #sidenav opened mode="over" position="start" class="sideNav">
 
     <div class="button" fxLayout="row" fxLayoutAlign="{{isExpanded ? 'start' : 'center'}}">
       <!--fxFlexOffset is used here to keep the button in place upon expanding the sidNav-->

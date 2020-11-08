@@ -20,6 +20,7 @@ export class RoomComponent extends SubscriptionHandler implements OnInit {
   public votingButton: string;
   public votingEnabled: boolean;
   public isExpanded: boolean;
+  public hasBackdrop: boolean;
   roomId: string;
   currentStory: string;
 
@@ -28,7 +29,7 @@ export class RoomComponent extends SubscriptionHandler implements OnInit {
   }
 
   public ngOnInit() {
-
+    this.hasBackdrop = false;
     this.addSubscription(this.route.paramMap
       .pipe(map((params: ParamMap) =>  params.get('id')))
       .subscribe(id => {
@@ -66,9 +67,9 @@ export class RoomComponent extends SubscriptionHandler implements OnInit {
     this.isExpanded = !this.isExpanded;
 
     if (!Utils.isAtLeastMediumScreen() && this.isExpanded) {
-      this.sidenav.mode = "over";
+      this.hasBackdrop = true;
     } else {
-      this.sidenav.mode = "side";
+      this.hasBackdrop = false;
     }
   }
 }
