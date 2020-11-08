@@ -17,6 +17,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTabsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatBadgeModule
   ],
   imports: [
     BrowserAnimationsModule,
@@ -59,7 +61,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTabsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatBadgeModule
   ],
 })
 export class MaterialModule {}

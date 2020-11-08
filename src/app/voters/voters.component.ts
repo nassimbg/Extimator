@@ -95,7 +95,7 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
   }
 
   getVotingStatues(voter: DisplayedVoter) {
-    return voter.voted ? '#2e9d4b' :  '#ff9c43'
+    return voter.voted ? 'primary' :  'accent'
   }
 }
 

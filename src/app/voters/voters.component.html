@@ -1,7 +1,9 @@
 <mat-list class="listStyle">
   <mat-list-item fxLayoutAlign="{{showMore ? 'right' : 'center'}}" *ngFor="let vote of participants | keyvalue">
     <div matListAvatar matTooltip={{vote.value.userName}} [matTooltipPosition]="'right'"
-         [style.backgroundImage]="getVoterPhoto(vote.value)" [style.border-color]="getVotingStatues(vote.value)" class="avatar"></div>
+         [style.backgroundImage]="getVoterPhoto(vote.value)"
+         class="avatar"
+         matBadge="&#8288;" matBadgePosition='below after' [matBadgeColor]="getVotingStatues(vote.value)" matBadgeSize="small"></div>
     <div matLine *ngIf="showMore"><span>{{vote.value.userName}}</span></div>
   </mat-list-item>
 </mat-list>
