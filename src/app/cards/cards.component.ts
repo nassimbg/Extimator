@@ -50,6 +50,9 @@ export class CardsComponent extends SubscriptionHandler implements OnInit {
 
     if (this.cardSelected && oldSelection !== selectedCard) {
        this.voteService.vote(this.roomId, this.currentStory , new Vote(this.userId, this.selectedCard.id));
+    } else if (!this.cardSelected) {
+      this.selectedCard = undefined;
+      this.voteService.unVote(this.roomId, this.currentStory, this.userId);
     }
   }
 

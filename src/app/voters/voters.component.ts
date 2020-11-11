@@ -28,10 +28,9 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
   @Input()
   private currentStory: string;
 
-  private cardSubscription : Subscription;
   private votesSubscription : Subscription;
 
-  constructor(private voteService: VoteService, private cardsService: CardsService, private userService: UserManager, private roomService: RoomService) {
+  constructor(private voteService: VoteService, private userService: UserManager, private roomService: RoomService) {
     super();
     this.participants = new Map();
   }
@@ -82,12 +81,7 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
       this.participants.set(vote.userID, displayedVoter);
     }
 
-    if (!!this.cardSubscription) {
-      this.cardSubscription.unsubscribe();
-    }
-    this.cardSubscription = this.cardsService
-      .getCardValueFor(vote.cardId)
-      .subscribe(cardTitle => displayedVoter.setVote(true, cardTitle));
+    displayedVoter.setVote(true);
   }
 
   getVoterPhoto(voter: DisplayedVoter) {

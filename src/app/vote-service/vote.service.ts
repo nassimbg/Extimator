@@ -34,6 +34,12 @@ export class VoteService {
       .catch(Utils.handlePromiseError);
   }
 
+  public unVote(roomId: string, storyId: string, userId: string): void {
+    this.af.object(VoteService.getEstimationURL(roomId, storyId,  userId))
+      .remove()
+      .catch(Utils.handlePromiseError);
+  }
+
   public getVotes(roomId: string, currentStory: string): Observable<Vote[]> {
     return this.af.list<number>(VoteService.getEstimationURL(roomId, currentStory, ''))
       .snapshotChanges()
