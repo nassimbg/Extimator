@@ -9,6 +9,7 @@ import {Utils} from '../../utils/utils';
 export class RoomService {
   static roomsPath = '/ROOMS/';
   static participant = '/PARTICIPANTS/';
+  static facilitator = '/facilitator/';
 
   private angularFireRooms: AngularFireList<Room>;
 
@@ -38,6 +39,10 @@ export class RoomService {
 
   getParticipants(roomId: string): Observable<string[]> {
     return this.getParticipantsList(roomId).valueChanges();
+  }
+
+  getFacilitator(roomId: string): Observable<any> {
+    return this.af.object(RoomService.roomsPath + roomId + RoomService.facilitator).valueChanges();
   }
 
   getAllRooms(): Observable<any[]> {

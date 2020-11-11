@@ -5,6 +5,8 @@ import {RoomService} from "../room-service/room.service";
 import {Utils} from '../../utils/utils';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {SubscriptionHandler} from '../../utils/subscription-handler';
+import {AuthService} from "../../authentication/service/Auth.service";
+import {User} from "../../UserManagement/user";
 
 @Component({
   selector: 'app-pick-room',
@@ -22,8 +24,9 @@ export class PickRoomComponent extends SubscriptionHandler implements OnInit {
   myRooms: any[];
 
   inProcess: boolean;
+  private user: User;
 
-  constructor(private roomService: RoomService, private router: Router, private fb: FormBuilder) {
+  constructor(private roomService: RoomService, private router: Router, private fb: FormBuilder, private authService: AuthService) {
     super();
   }
 
@@ -40,14 +43,15 @@ export class PickRoomComponent extends SubscriptionHandler implements OnInit {
     },
       {validator : this.wasRoomPicked});
 
-    this.addSubscription(this.roomService.getAllRooms().subscribe(rooms => this.myRooms = rooms))
+    this.addSubscription(this.roomService.getAllRooms().subscribe(rooms => this.myRooms = rooms));
+    this.addSubscription(this.authService.getUser().subscribe(user => this.user = user));
   }
 
   onSubmit() {
     if (this.createRoomForm.valid) {
       this.inProcess = true;
       const roomName = this.createRoomForm.get('roomName').value;
-      const room = new Room(roomName);
+      const room = new Room(roomName, this.user.id);
       const roomId = this.roomService.push(room);
       this.router.navigate(['/room', roomId])
         .finally(() => this.inProcess = false);

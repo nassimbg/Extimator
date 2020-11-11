@@ -1,8 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { VoteService } from '../vote-service/vote.service';
-import {CardsService} from "../cards/card-service/cards.service";
 import {UserManager} from "../UserManagement/UserManager.service";
-import {delay, filter, map, mergeMap, tap} from "rxjs/operators";
+import {filter, map, mergeMap, tap} from "rxjs/operators";
 import {RoomService} from "../room/room-service/room.service";
 import {combineLatest, of} from "rxjs";
 import {User} from "../UserManagement/user";
@@ -29,6 +28,7 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
   private currentStory: string;
 
   private votesSubscription : Subscription;
+  private facilitator: string;
 
   constructor(private voteService: VoteService, private userService: UserManager, private roomService: RoomService) {
     super();
@@ -44,6 +44,10 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
         filter(user => user !== null)
       )
       .subscribe(participant => this.addUserToParticipants(participant)));
+
+    this.addSubscription(this.roomService.getFacilitator(this.roomId)
+      .subscribe(facilitator => this.facilitator = facilitator)
+    );
   }
 
   private addUserToParticipants(user) {
@@ -90,6 +94,15 @@ export class VotersComponent extends SubscriptionHandler implements OnInit, OnCh
 
   getVotingStatues(voter: DisplayedVoter) {
     return voter.voted ? 'primary' :  'accent'
+  }
+
+  isFacilitator(displayedVoter: DisplayedVoter) {
+    return this.facilitator === displayedVoter.userID;
+  }
+
+  outputTooltipInfo(displayedVoter: DisplayedVoter)  {
+    const isFacilitator = this.isFacilitator(displayedVoter) ? ' (Facilitator)' : '';
+    return `${displayedVoter.userName}${isFacilitator}`;
   }
 }
 
