@@ -27,6 +27,8 @@ export class LogInComponent implements OnInit {
   anonymousType : SignInType;
   signInAnonymousForm: FormGroup;
 
+  avatars: any;
+
   isXSmallScreen: boolean;
 
 
@@ -65,6 +67,18 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.avatars = [
+      'female_0',
+      'female_1',
+      'female_2',
+      'male_0',
+      'male_1',
+      'male_2',
+      'male_3',
+      'male_4',
+      'male_5',
+    ];
+
     this.socialLogIns = LogInComponent.createLogInTypes();
 
     this.registerLoginIcons(this.socialLogIns);
@@ -73,7 +87,8 @@ export class LogInComponent implements OnInit {
 
     this.signInAnonymousForm = this.fb.group({
       username: ['', Validators.required],
-      gender: new FormControl('male')
+      gender: new FormControl('male'),
+      avatar: []
     });
 
     this.signInForm = this.fb.group({
@@ -123,7 +138,7 @@ export class LogInComponent implements OnInit {
     if (this.signInAnonymousForm.valid) {
       const username = this.signInAnonymousForm.get('username').value;
       const gender = this.signInAnonymousForm.get('gender').value;
-      const photoURL = LogInComponent.getAvatarPerGender(gender);
+      const photoURL = this.getAvatarPerGender(gender);
 
       return this.authService.signInAnonymously(username, photoURL);
     }
@@ -155,7 +170,7 @@ export class LogInComponent implements OnInit {
       const username = this.signUpForm.get('username').value;
       const password = this.signUpForm.get('password').value;
       const gender = this.signUpForm.get('gender').value;
-      const photoURL = LogInComponent.getAvatarPerGender(gender);
+      const photoURL = this.getAvatarPerGender(gender);
 
       const p = this.authService.signUpWithEmail(email, password, username, photoURL)
         .catch(error => {
@@ -168,10 +183,26 @@ export class LogInComponent implements OnInit {
     }
   }
 
-  private static getAvatarPerGender(gender: any) {
+  private getAvatarPerGender(gender: any) {
     const avatarsPerGender = gender.toString().toLowerCase() === 'male' ? 6 : 3;
     const avatarNumber = LogInComponent.getRandomInt(avatarsPerGender - 1);
-    return `assets/images/avatar/${gender}_${avatarNumber}.svg`;
+    return this.getAvatar(`${gender}_${avatarNumber}`);
+  }
+
+  getAvatar(avatarID: string) {
+    return `assets/images/avatar/${avatarID}.svg`;
+  }
+
+  getAvatarPhoto(id: string) {
+    return 'url(' + this.getAvatar(id) + ')'
+  }
+
+  getMaleAvatarPhoto() {
+    return this.getAvatarPhoto('male_3');
+  }
+
+  getFemaleAvatarPhoto() {
+    return this.getAvatarPhoto('female_2');
   }
 
   private static getRandomInt(max: number): number {

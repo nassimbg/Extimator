@@ -24,10 +24,14 @@
             </mat-form-field>
 
             <div class="full-width">
-              <label class="foreground-color-theme">Gender: </label>
+              <label class="foreground-color-theme">Avatar: </label>
               <mat-radio-group formControlName="gender" class="gender-radio-group">
-                <mat-radio-button class="foreground-color-theme" value="male">Male</mat-radio-button>
-                <mat-radio-button class="foreground-color-theme" value="female">Female</mat-radio-button>
+                <mat-radio-button class="foreground-color-theme" value="female">
+                  <div [style.backgroundImage]="getFemaleAvatarPhoto()" class="avatar avatarSize"></div>
+                </mat-radio-button>
+                <mat-radio-button class="foreground-color-theme" value="male">
+                  <div [style.backgroundImage]="getMaleAvatarPhoto()" class="avatar avatarSize"></div>
+                </mat-radio-button>
               </mat-radio-group>
             </div>
 
@@ -111,10 +115,14 @@
             </mat-form-field>
 
             <div class="full-width">
-              <label class="foreground-color-theme">Gender: </label>
+              <label class="foreground-color-theme">Avatar: </label>
               <mat-radio-group formControlName="gender" class="gender-radio-group">
-                <mat-radio-button class="foreground-color-theme" value="male">Male</mat-radio-button>
-                <mat-radio-button class="foreground-color-theme" value="female">Female</mat-radio-button>
+                <mat-radio-button class="foreground-color-theme" value="female">
+                  <div [style.backgroundImage]="getFemaleAvatarPhoto()" class="avatar avatarSize"></div>
+                </mat-radio-button>
+                <mat-radio-button class="foreground-color-theme" value="male">
+                  <div [style.backgroundImage]="getMaleAvatarPhoto()" class="avatar avatarSize"></div>
+                </mat-radio-button>
               </mat-radio-group>
             </div>
 
