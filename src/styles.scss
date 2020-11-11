@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import "forms.scss";
 
 @import '~@angular/material/theming';
 @import "theme/theme";
@@ -82,8 +81,4 @@ body {
   .marginningForm {
     margin: 0 20%;
   }
-}
-
-.ng-invalid:not(form) {
-  border-left: none !important;
 }
