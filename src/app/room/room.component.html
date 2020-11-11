@@ -3,7 +3,7 @@
 
     <div class="button" fxLayout="row" fxLayoutAlign="{{isExpanded ? 'start' : 'center'}}">
       <!--fxFlexOffset is used here to keep the button in place upon expanding the sidNav-->
-      <button mat-mini-fab (click)="expandNav()" color="accent" fxFlexOffset="{{isExpanded ? 6 : 0}}">
+      <button mat-mini-fab (click)="expandNav()" class="mat-elevation-z0" color="none" fxFlexOffset="{{isExpanded ? 6 : 0}}">
         <mat-icon aria-label="Menu">menu</mat-icon>
       </button>
     </div>
@@ -11,11 +11,11 @@
     <app-voters [roomId]="roomId" [currentStory]="currentStory" [showMore]=isExpanded></app-voters>
   </mat-sidenav>
 
-  <mat-sidenav-content fxLayout="row">
+  <mat-sidenav-content fxLayout="row" class="sideNavContent">
     <div fxFlexFill fxLayout="column" class="votingContainer">
 
-      <div id="mainVotingContainer" fxFlex="50">
-        <div *ngIf="votingEnabled;">
+      <div id="mainVotingContainer">
+        <div *ngIf="votingEnabled;" class="deck">
           <app-cards [roomId]="roomId" [currentStory]="currentStory"></app-cards>
         </div>
 
